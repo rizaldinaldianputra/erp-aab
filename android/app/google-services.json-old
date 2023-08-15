@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "1070939149125",
+    "project_id": "erp-adonara",
+    "storage_bucket": "erp-adonara.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070939149125:android:0c6789e9ec32874696e42c",
+        "android_client_info": {
+          "package_name": "com.adonara.erp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070939149125-v2qorn768qc1273l7asgk33e761iqlgq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpO6lk1O-zV6qgUfw0gD1WkArGOoBGjII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070939149125-v2qorn768qc1273l7asgk33e761iqlgq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070939149125:android:0ca184a2309c524096e42c",
+        "android_client_info": {
+          "package_name": "mobile.trackingworks.io"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070939149125-v2qorn768qc1273l7asgk33e761iqlgq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpO6lk1O-zV6qgUfw0gD1WkArGOoBGjII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070939149125-v2qorn768qc1273l7asgk33e761iqlgq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070939149125:android:c0c2554bb4d97d6796e42c",
+        "android_client_info": {
+          "package_name": "mobile.trackingworks.io.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070939149125-v2qorn768qc1273l7asgk33e761iqlgq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpO6lk1O-zV6qgUfw0gD1WkArGOoBGjII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070939149125-v2qorn768qc1273l7asgk33e761iqlgq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070939149125:android:729e18b14a476fd096e42c",
+        "android_client_info": {
+          "package_name": "mobile.trackingworks.io.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070939149125-v2qorn768qc1273l7asgk33e761iqlgq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpO6lk1O-zV6qgUfw0gD1WkArGOoBGjII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070939149125-v2qorn768qc1273l7asgk33e761iqlgq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
