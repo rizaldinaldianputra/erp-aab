@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:settings/settings.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'app/app.dart';
 

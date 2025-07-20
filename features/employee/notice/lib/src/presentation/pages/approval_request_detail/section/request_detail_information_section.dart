@@ -3,7 +3,7 @@ import 'package:dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:l10n/l10n.dart';
 import 'package:preferences/preferences.dart';
-
+import 'package:flutter_html/flutter_html.dart';
 import '../../../../../notice.dart';
 
 class RequestDetailInformationSection extends StatelessWidget {

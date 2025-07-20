@@ -87,21 +87,21 @@ class _HeaderClockSectionState extends State<HeaderClockSection> {
             final endNotifTime =
                 endDateTime.subtract(const Duration(minutes: 15));
 
-            if (startNotifTime.isAfter(now)) {
-              await scheduleNotification(
-                startNotifTime,
-                'Reminder Absen Masuk',
-                'Jangan lupa absen masuk! Sesi Anda dimulai dalam 15 menit.',
-              );
-            }
+            // if (startNotifTime.isAfter(now)) {
+            //   await scheduleNotification(
+            //     startNotifTime,
+            //     'Reminder Absen Masuk',
+            //     'Jangan lupa absen masuk! Sesi Anda dimulai dalam 15 menit.',
+            //   );
+            // }
 
-            if (endNotifTime.isAfter(now)) {
-              await scheduleNotification(
-                endNotifTime,
-                'Reminder Absen Pulang',
-                'Jangan lupa absen pulang! Sesi Anda akan berakhir 15 menit lagi.',
-              );
-            }
+            // if (endNotifTime.isAfter(now)) {
+            //   await scheduleNotification(
+            //     endNotifTime,
+            //     'Reminder Absen Pulang',
+            //     'Jangan lupa absen pulang! Sesi Anda akan berakhir 15 menit lagi.',
+            //   );
+            // }
 
             // Tampilkan dialog konfirmasi
             // showDialog(
@@ -483,30 +483,29 @@ class _HeaderClockSectionState extends State<HeaderClockSection> {
             ));
   }
 
-  Future<void> scheduleNotification(
-      DateTime targetTime, String title, String body) async {
-    final androidDetails = AndroidNotificationDetails(
-      'your_channel_id',
-      'Your Channel Name',
-      channelDescription: 'Notification before schedule',
-      importance: Importance.max,
-      priority: Priority.high,
-    );
+  // Future<void> scheduleNotification(
+  //     DateTime targetTime, String title, String body) async {
+  //   final androidDetails = AndroidNotificationDetails(
+  //     'your_channel_id',
+  //     'Your Channel Name',
+  //     channelDescription: 'Notification before schedule',
+  //     importance: Importance.max,
+  //     priority: Priority.high,
+  //   );
 
-    final notificationDetails = NotificationDetails(android: androidDetails);
+  //   final notificationDetails = NotificationDetails(android: androidDetails);
 
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      targetTime.millisecondsSinceEpoch ~/ 1000, // unique id
-      title,
-      body,
-      tz.TZDateTime.from(targetTime, tz.local),
-      notificationDetails,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time,
-    );
-  }
+  //   await flutterLocalNotificationsPlugin.zonedSchedule(
+  //     targetTime.millisecondsSinceEpoch ~/ 1000, // unique id
+  //     title,
+  //     body,
+  //     tz.TZDateTime.from(targetTime, tz.local),
+  //     notificationDetails, androidAllowWhileIdle: true,
+  //     uiLocalNotificationDateInterpretation:
+  //         UILocalNotificationDateInterpretation.absoluteTime,
+  //     matchDateTimeComponents: DateTimeComponents.time,
+  //   );
+  // }
 }
 
 extension _ClockMessageTypeX on ClockMessageType {

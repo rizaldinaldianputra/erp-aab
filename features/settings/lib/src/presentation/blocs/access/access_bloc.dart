@@ -26,7 +26,6 @@ class AccessBloc extends Bloc<AccessEvent, AccessState> {
           library: 'Geolocator',
           tags: const ['geolocator'],
           errorMessage: 'Device is now using mock location',
-          level: SentryLevel.debug,
           stackTrace: StackTrace.current,
           exception: Exception('Device is now using mock location'),
         ));

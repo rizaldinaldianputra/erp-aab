@@ -2,9 +2,8 @@ import 'package:dependencies/dependencies.dart';
 import 'package:l10n/l10n.dart';
 
 import '../../core.dart';
+import 'package:dio/dio.dart';
 
-// ignore: avoid_classes_with_only_static_members
-/// Basic utils to handle network
 class NetworkUtils {
   ///
   static final List<int> _supportedErrorStatusCode =

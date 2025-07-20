@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:async';
-
+import 'package:sentry/sentry.dart';
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:settings/settings.dart';
@@ -39,13 +39,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await repository.setSavedUser(UserModel.fromEntity(event.user));
       yield AuthState.authenticated(event.user);
-      Sentry.configureScope(
-        (scope) => scope.user = SentryUser(
-          id: event.user.id.toString(),
-          email: event.user.email,
-          username: event.user.name.replaceAll(' ', '_'),
-        ),
-      );
+      // Sentry.configureScope(
+      //   (scope) => scope.user = SentryUser(
+      //     id: event.user.id.toString(),
+      //     email: event.user.email,
+      //     username: event.user.name.replaceAll(' ', '_'),
+      //   ),
+      // );
       FirebaseMessaging.instance.deleteToken();
       final token = await FirebaseMessaging.instance.getToken();
       await savePushNotificationUseCase(token ?? '');
@@ -70,14 +70,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield AuthState.authenticated(user!);
     } else {
       yield const AuthState.unAuthenticated();
-      Sentry.configureScope((scope) => scope.user = null);
+      // Sentry.configureScope((scope) => scope.user = null);
     }
   }
 
   Stream<AuthState> _mapLogOutToState() async* {
     yield* (await logOutUseCase(NoParams())).fold((l) async* {}, (r) async* {
       yield const AuthState.unAuthenticated();
-      Sentry.configureScope((scope) => scope.user = null);
+      // Sentry.configureScope((scope) => scope.user = null);
     });
   }
 }

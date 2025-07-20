@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
+import 'package:sentry/sentry.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:settings/settings.dart';
+import 'package:dio/dio.dart';
 
 class HttpErrorReportInterceptor extends Interceptor {
   @override

@@ -16,7 +16,7 @@ class PushNotificationService {
   static const _initializationSettingsAndroid =
       AndroidInitializationSettings('ic_stat_icon');
 
-  static const _initializationSettingsIOS = IOSInitializationSettings();
+  static final _initializationSettingsDarwin = DarwinInitializationSettings();
 
   static const _notificationChannel = AndroidNotificationChannel(
     'high_importance_channel', // id
@@ -28,7 +28,6 @@ class PushNotificationService {
 
   static const _initializationSettings = InitializationSettings(
     android: _initializationSettingsAndroid,
-    iOS: _initializationSettingsIOS,
   );
 
   Future initialize() async {
@@ -87,11 +86,6 @@ class PushNotificationService {
   void _initializeLocalNotification() async {
     await _flutterLocalNotificationsPlugin.initialize(
       _initializationSettings,
-      onSelectNotification: (payload) async {
-        if (payload != null) {
-          log('notification payload: $payload');
-        }
-      },
     );
 
     await _flutterLocalNotificationsPlugin

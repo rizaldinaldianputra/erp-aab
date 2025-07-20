@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:sentry/sentry.dart';
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:flutter/foundation.dart';
@@ -16,7 +16,7 @@ class RecordErrorUseCase implements UseCase<bool, RecordErrorParams> {
         Sentry.captureException(
           params.exception,
           stackTrace: params.stackTrace,
-          hint: params.errorMessage,
+          hint: Hint.withResponse(SentryResponse.fromJson({})),
           withScope: (scope) {
             scope.level = params.level;
             if (params.tags != null) scope.fingerprint = params.tags!;

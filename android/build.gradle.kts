@@ -1,5 +1,6 @@
 allprojects {
     repositories {
+        maven { url = uri("https://dl.google.com/dl/android/maven2") } // penting
         google()
         mavenCentral()
     }

@@ -16,53 +16,61 @@ import 'package:profile/profile.dart';
 import 'package:resign/resign.dart';
 import 'package:settings/settings.dart';
 import 'package:trackingworks/app/http_error_report_interceptor.dart';
-import 'package:dio/adapter.dart';
+import 'package:dio/dio.dart';
 
 import '../config/config.dart';
 
 final getIt = GetIt.instance;
 
-Future setupGlobalDI() async {
-  // -------------- CORE MODULE -----------------
+/// Setup Global Dependency Injection
+Future<void> setupGlobalDI() async {
+  // ---------- CORE MODULE ----------
   await Firebase.initializeApp();
   Bloc.observer = AppBlocObserver();
 
-  CacheManager _cacheManager =
-      await CacheManagerImpl.setup(encryptKey: BaseConfig.encryptDBKey);
-  getIt.registerLazySingleton<CacheManager>(() => _cacheManager);
+  final cacheManager = await CacheManagerImpl.setup(
+    encryptKey: BaseConfig.encryptDBKey,
+  );
+  getIt.registerLazySingleton<CacheManager>(() => cacheManager);
+
   await _setupConfiguration();
+
   getIt.registerLazySingleton<GlobalKey<NavigatorState>>(
-      () => GlobalKey<NavigatorState>());
+    () => GlobalKey<NavigatorState>(),
+  );
   getIt.registerLazySingleton<GlobalKey<ScaffoldMessengerState>>(
-      () => GlobalKey<ScaffoldMessengerState>());
+    () => GlobalKey<ScaffoldMessengerState>(),
+  );
   getIt.registerFactory<RouteSettings>(() => RouteSettings());
 
-  final _defaultUrl = getIt<GlobalConfiguration>().getValue('base_url');
-  getIt.registerLazySingleton(
-    () => Dio(
-      BaseOptions(
-        baseUrl: _defaultUrl,
-      ),
-    )..interceptors.addAll(
-        [
-          AuthHttpInterceptor(cacheManager: getIt(), onUnAuth: () {}),
-          LogInterceptor(
-            requestBody: true,
-            responseBody: true,
-            logPrint: (v) {
-              log(v.toString());
-            },
-          ),
-          HttpErrorReportInterceptor(),
-        ],
-      ),
-  );
+  final baseUrl = getIt<GlobalConfiguration>().getValue('base_url');
+  final dio = Dio(BaseOptions(baseUrl: baseUrl));
+
+  dio.interceptors.addAll([
+    AuthHttpInterceptor(
+      cacheManager: getIt(),
+      onUnAuth: () {
+        // TODO: handle unauthorized access globally
+      },
+    ),
+    LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+      logPrint: (v) => log(v.toString()),
+    ),
+    HttpErrorReportInterceptor(),
+  ]);
+
+  getIt.registerLazySingleton<Dio>(() => dio);
+
   _fixBadHttpCertificate();
 
-  getIt.registerLazySingleton(() => InternetConnectionChecker());
+  getIt.registerLazySingleton<InternetConnectionChecker>(
+    () => InternetConnectionChecker(),
+  );
+  // ---------- END CORE MODULE ----------
 
-  // ------------ END CORE MODULE ---------------
-
+  // ---------- FEATURE MODULE ----------
   AuthModule().inject(getIt);
   HomeModule().inject(getIt);
   MainModule().inject(getIt);
@@ -74,10 +82,13 @@ Future setupGlobalDI() async {
   ResignModule().inject(getIt);
   PayrollModule().inject(getIt);
   FilesModule().inject(getIt);
+  // ---------- END FEATURE MODULE ----------
 }
 
+/// Setup configuration based on flavor (DEV, STAGING, PROD)
 Future<void> _setupConfiguration() async {
   late GlobalConfiguration globalConfig;
+
   switch (F.flavor) {
     case Flavor.DEV:
       globalConfig = await GlobalConfiguration.setup('assets/cfg/env-dev.json');
@@ -90,20 +101,20 @@ Future<void> _setupConfiguration() async {
       globalConfig =
           await GlobalConfiguration.setup('assets/cfg/env-prod.json');
       break;
-    default:
   }
 
   final packageInfo = await PackageInfo.fromPlatform();
   globalConfig.setValue('version_name', packageInfo.version);
+
   getIt.registerLazySingleton<GlobalConfiguration>(() => globalConfig);
 }
 
+/// Allow self-signed or bad SSL certificates (for development only!)
 void _fixBadHttpCertificate() {
   final dio = GetIt.I<Dio>();
-  (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-      (HttpClient client) {
-    client.badCertificateCallback =
-        (X509Certificate cert, String host, int port) => true;
-    return client;
-  };
+  // (dio.httpClientAdapter) = (HttpClient client) {
+  //   client.badCertificateCallback =
+  //       (X509Certificate cert, String host, int port) => true;
+  //   return client;
+  // };
 }

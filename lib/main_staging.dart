@@ -3,6 +3,7 @@ import 'package:dependencies/dependencies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:trackingworks/run_app.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'config/config.dart';
 import 'di/injection.dart';

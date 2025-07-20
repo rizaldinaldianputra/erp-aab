@@ -82,7 +82,6 @@ class AuthHttpInterceptor extends InterceptorsWrapper {
             RecordErrorParams(
               library: 'Flutter Device Id',
               tags: const ['Flutter Device Id'],
-              level: SentryLevel.warning,
               exception: Exception('Can\'t fetch device ID in this device'),
               stackTrace: StackTrace.current,
               errorMessage: 'Can\'t fetch device ID in this device',

@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   syncfusion_flutter_pdfviewer: ^30.1.40
+  shared_preferences: ^2.5.3
   component:
     path: ../../../shared/component
   core:

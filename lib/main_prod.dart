@@ -6,11 +6,10 @@ import 'package:dependencies/dependencies.dart';
 import 'package:trackingworks/run_app.dart';
 import 'config/config.dart';
 import 'di/injection.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();

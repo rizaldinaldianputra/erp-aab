@@ -12,8 +12,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  open_file_plus: ^3.4.1 # atau versi terbaru
-
   component:
     path: ../../shared/component
   dependencies:

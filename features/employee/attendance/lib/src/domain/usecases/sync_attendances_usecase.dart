@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:sentry/sentry.dart';
 import 'package:attendance/attendance.dart';
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';

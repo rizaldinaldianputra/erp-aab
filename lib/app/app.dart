@@ -50,7 +50,6 @@ class App extends StatelessWidget {
               scaffoldMessengerKey: getIt<GlobalKey<ScaffoldMessengerState>>(),
               navigatorObservers: [
                 SnackbarNavigatorObserver(),
-                SentryNavigatorObserver(),
               ],
               theme: state.theme,
               navigatorKey: getIt<GlobalKey<NavigatorState>>(),

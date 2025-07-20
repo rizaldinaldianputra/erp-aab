@@ -135,7 +135,6 @@ class _InternetCheckerState extends State<_InternetChecker> {
                 message: failure.message, code: failure.code),
             stackTrace: StackTrace.current,
             errorMessage: 'Failed to sync saved attendance',
-            level: SentryLevel.fatal,
             tags: const ['sync_saved_attendance'],
           ));
         }, (success) {
@@ -147,7 +146,6 @@ class _InternetCheckerState extends State<_InternetChecker> {
         exception: exception,
         stackTrace: stackTrace,
         errorMessage: 'Failed to sync saved attendance',
-        level: SentryLevel.fatal,
         tags: const ['sync_saved_attendance'],
       ));
     } finally {

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:flutter_html/flutter_html.dart';
 import 'package:component/component.dart';
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
