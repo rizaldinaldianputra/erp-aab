@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:flutter/services.dart';
+// import 'package:open_file_plus/open_file_plus.dart'; // ganti ke open_file_plus
 
 import '../../../files.dart';
 
@@ -30,7 +31,7 @@ class SaveFileDownloadFolderUseCase
       final savedDir = Directory(_basePath ?? '');
       var hasExisted = await savedDir.exists();
       if (!hasExisted) {
-        savedDir.create();
+        await savedDir.create(recursive: true);
       }
       defaultPath = savedDir.path;
 
@@ -40,7 +41,7 @@ class SaveFileDownloadFolderUseCase
       final result = await File(defaultPath).writeAsBytes(params.data);
 
       if (params.openOnSuccess ?? false) {
-        await OpenFile.open(defaultPath);
+        // await OpenFile.open(defaultPath); // ini dari open_file_plus
       }
 
       return Right(await result.exists());

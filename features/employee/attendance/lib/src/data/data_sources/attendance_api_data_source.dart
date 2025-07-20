@@ -172,6 +172,7 @@ class AttendanceApiDataSourceImpl implements AttendanceApiDataSource {
           'per_page': 31,
         },
       );
+
       return ScheduleResponseModel.fromJson(response.data);
     } on DioError catch (e) {
       throw await NetworkUtils.dioErrorToException(e);

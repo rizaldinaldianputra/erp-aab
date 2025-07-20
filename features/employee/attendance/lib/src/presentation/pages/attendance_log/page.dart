@@ -39,7 +39,7 @@ class _AttendanceLogPageState extends State<AttendanceLogPage> {
           appBar: AppBar(
             title: Text(S.of(context).attendance),
             bottom: TabBar(
-              indicatorColor: StaticColors.red,
+              indicatorColor: StaticColors.green,
               tabs: [
                 Tab(text: S.of(context).schedule),
                 Tab(text: S.of(context).logs),

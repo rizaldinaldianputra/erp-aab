@@ -57,7 +57,7 @@ class UserProfileCard extends StatelessWidget {
           ],
           style: Theme.of(context)
               .textTheme
-              .headline5
+              .titleSmall
               ?.copyWith(fontWeight: FontWeight.normal),
         )),
         RegularText(email),

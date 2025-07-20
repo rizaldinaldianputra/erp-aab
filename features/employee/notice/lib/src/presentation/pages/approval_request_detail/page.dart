@@ -177,7 +177,6 @@ class _ApprovalRequestDetailPageState extends State<ApprovalRequestDetailPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Dimens.dp10),
         ),
-        contentTextStyle: Theme.of(context).textTheme.bodyText2,
         actions: [
           SizedBox(
             width: MediaQuery.of(context).size.width,

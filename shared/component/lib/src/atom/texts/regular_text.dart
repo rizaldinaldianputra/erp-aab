@@ -17,7 +17,7 @@ class RegularText extends StatelessWidget {
   final TextAlign? align;
 
   TextStyle? _getStyle(BuildContext context) =>
-      Theme.of(context).textTheme.bodyText1;
+      Theme.of(context).textTheme.titleLarge;
 
   @override
   Widget build(BuildContext context) {

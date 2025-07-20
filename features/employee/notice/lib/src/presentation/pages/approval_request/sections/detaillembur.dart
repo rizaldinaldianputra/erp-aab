@@ -289,8 +289,6 @@ class _RequestLemburDetailState extends State<RequestLemburDetail> {
                                   children: [
                                     Text(
                                       "Aprove Overtime Request?",
-                                      style:
-                                          Theme.of(context).textTheme.headline6,
                                     ),
                                     const SizedBox(height: 16),
                                     TextFormField(
@@ -318,11 +316,7 @@ class _RequestLemburDetailState extends State<RequestLemburDetail> {
                                           onPressed: () {
                                             Navigator.pop(context, false);
                                           },
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                    Color>(Colors.grey),
-                                          ),
+                                          style: ButtonStyle(),
                                           child: Text("No"),
                                         ),
                                         const SizedBox(width: 8),
@@ -364,8 +358,6 @@ class _RequestLemburDetailState extends State<RequestLemburDetail> {
                                   children: [
                                     Text(
                                       "Reject Overtime Request? ",
-                                      style:
-                                          Theme.of(context).textTheme.headline6,
                                     ),
                                     const SizedBox(height: 16),
                                     TextFormField(
@@ -398,11 +390,7 @@ class _RequestLemburDetailState extends State<RequestLemburDetail> {
                                           onPressed: () {
                                             Navigator.pop(context, false);
                                           },
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                    Color>(Colors.grey),
-                                          ),
+                                          style: ButtonStyle(),
                                           child: Text("No"),
                                         ),
                                         const SizedBox(width: 8),

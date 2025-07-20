@@ -66,7 +66,7 @@ class RegularTextInput extends StatelessWidget {
             iconTheme: const IconThemeData(
               size: Dimens.dp10,
             ),
-            primaryColor: Theme.of(context).textTheme.headline5?.color,
+            primaryColor: Theme.of(context).textTheme.titleSmall?.color,
           ),
           child: TextFormField(
             focusNode: focusNode,
@@ -115,14 +115,14 @@ class RegularTextInput extends StatelessWidget {
               ),
               errorBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Theme.of(context).errorColor,
+                  color: Theme.of(context).canvasColor,
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(Dimens.dp8),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Theme.of(context).errorColor,
+                  color: Theme.of(context).canvasColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(Dimens.dp8),

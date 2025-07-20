@@ -46,7 +46,6 @@ Future setupGlobalDI() async {
     )..interceptors.addAll(
         [
           AuthHttpInterceptor(cacheManager: getIt(), onUnAuth: () {}),
-          DioFirebasePerformanceInterceptor(),
           LogInterceptor(
             requestBody: true,
             responseBody: true,

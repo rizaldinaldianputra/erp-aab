@@ -15,8 +15,8 @@ class PrimaryButton extends StatelessWidget {
     return MaterialButton(
       onPressed: onPressed,
       child: child,
-      padding: const EdgeInsets.symmetric(
-          vertical: Dimens.dp14, horizontal: Dimens.dp32),
+      // padding: const EdgeInsets.symmetric(
+      //     vertical: Dimens.dp14, horizontal: Dimens.dp32),
       color: color ?? Theme.of(context).primaryColor,
       disabledColor: (color ?? Theme.of(context).primaryColor).withOpacity(0.7),
       disabledTextColor: Colors.white,

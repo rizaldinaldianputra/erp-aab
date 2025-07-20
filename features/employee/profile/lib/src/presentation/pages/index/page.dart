@@ -78,7 +78,6 @@ class _ProfilePageState extends State<ProfilePage> {
             onTap: _onTapLogOut,
             child: SubTitle2Text(
               S.of(context).log_out,
-              style: TextStyle(color: Theme.of(context).errorColor),
             ),
           ),
           RegularText(

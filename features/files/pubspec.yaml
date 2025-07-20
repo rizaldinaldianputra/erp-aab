@@ -12,6 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  open_file_plus: ^3.4.1 # atau versi terbaru
 
   component:
     path: ../../shared/component
@@ -21,9 +22,8 @@ dependencies:
     path: ../../shared/l10n
   preferences:
     path: ../../shared/preferences
-  core: 
+  core:
     path: ../../core
-
 
 dev_dependencies:
   flutter_test:

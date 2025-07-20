@@ -12,12 +12,10 @@ class MaterialLightTheme {
   static const Color textColor = Color(0xFF3C3C3C);
   static const Color disabledColor = Color(0xFF838383);
 
-
   /// Get theme data
   static ThemeData data = ThemeData.light().copyWith(
     primaryColor: primaryColor,
     primaryColorLight: primaryLightColor,
-    cardTheme: card,
     textTheme: text,
     bottomNavigationBarTheme: bottomNav,
     disabledColor: disabledColor,
@@ -25,7 +23,6 @@ class MaterialLightTheme {
     colorScheme: colorScheme,
     floatingActionButtonTheme: fab,
     appBarTheme: appBar,
-    tabBarTheme: tabBar,
   );
 
   /// Color scheme
@@ -37,7 +34,7 @@ class MaterialLightTheme {
 
   /// Floating Action Button
   static FloatingActionButtonThemeData fab =
-  const FloatingActionButtonThemeData(
+      const FloatingActionButtonThemeData(
     backgroundColor: primaryColor,
   );
 
@@ -51,7 +48,7 @@ class MaterialLightTheme {
 
   /// AppBar Theme
   static AppBarTheme appBar = AppBarTheme(
-    titleTextStyle: text.headline4?.copyWith(
+    titleTextStyle: text.titleMedium?.copyWith(
       color: primaryColor,
     ),
     foregroundColor: primaryColor,
@@ -67,48 +64,27 @@ class MaterialLightTheme {
   /// Text Theme
   static TextTheme text = const TextTheme(
     // Use for regular text
-    bodyText1: TextStyle(
+    titleLarge: TextStyle(
       fontSize: Dimens.dp14,
       color: textColor,
       fontWeight: FontWeight.normal,
     ),
-    bodyText2: TextStyle(
+    titleMedium: TextStyle(
       fontSize: Dimens.dp14,
       color: textColor,
       fontWeight: FontWeight.normal,
     ),
     // Use for TitleText
-    headline4: TextStyle(
+    titleSmall: TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: Dimens.dp20,
       color: textColor,
     ),
     // Use for SubTitleText2
-    headline5: TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: Dimens.dp16,
-      color: textColor,
-    ),
-    // Use for SubTitleText1
-    headline6: TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: Dimens.dp14,
-      color: textColor,
-    ),
-    // Use for SubTitleText2
-    subtitle1: TextStyle(
-      fontSize: Dimens.dp14,
-      color: textColor,
-      fontWeight: FontWeight.normal,
-    ),
-    button: TextStyle(
-      fontSize: Dimens.dp16,
-      fontWeight: FontWeight.bold,
-    ),
   );
 
   static BottomNavigationBarThemeData bottomNav =
-  const BottomNavigationBarThemeData(
+      const BottomNavigationBarThemeData(
     unselectedItemColor: Color(0xFFB9B9B9),
   );
 

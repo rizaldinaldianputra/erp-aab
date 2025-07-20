@@ -13,13 +13,7 @@ class SmallButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(
-          textTheme: const TextTheme(
-        button: TextStyle(
-          fontSize: Dimens.dp12,
-          fontWeight: FontWeight.normal,
-        ),
-      )),
+      data: ThemeData(textTheme: const TextTheme()),
       child: MaterialButton(
         onPressed: onPressed,
         child: child,

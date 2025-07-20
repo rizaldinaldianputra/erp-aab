@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:core/core.dart';
+import 'package:dependencies/dependencies.dart';
 
 import '../../../auth.dart';
 
@@ -43,6 +44,8 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   Future<String> getToken() async {
     final result = await cacheManager.read(AuthConfig.tokenCacheKey);
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString('tokens', result);
     if (result != null) return result;
     throw const NotFoundCacheException(message: 'Token Cache Not Found');
   }

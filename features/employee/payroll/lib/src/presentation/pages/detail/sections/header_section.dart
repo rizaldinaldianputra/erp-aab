@@ -1,6 +1,6 @@
 import 'package:component/component.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Badge;
 import 'package:preferences/preferences.dart';
 
 import '../../../../../payroll.dart';

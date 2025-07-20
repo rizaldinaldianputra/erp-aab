@@ -18,7 +18,7 @@ class SmallText extends StatelessWidget {
   final TextAlign? align;
 
   TextStyle? _getStyle(BuildContext context) =>
-      Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: Dimens.dp10);
+      Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: Dimens.dp10);
 
   @override
   Widget build(BuildContext context) {

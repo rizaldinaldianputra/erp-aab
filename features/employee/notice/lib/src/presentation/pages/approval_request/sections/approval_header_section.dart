@@ -186,7 +186,6 @@ class _ApprovalPageState extends State<ApprovalHeaderSection>
                                 borderRadius:
                                     BorderRadius.circular(Dimens.dp18),
                               ),
-                              primary: Colors.white,
                             ),
                             onPressed: () => setState(
                               () {
@@ -311,7 +310,6 @@ class _ApprovalPageState extends State<ApprovalHeaderSection>
                                 borderRadius:
                                     BorderRadius.circular(Dimens.dp18),
                               ),
-                              primary: Colors.white,
                             ),
                             onPressed: () => setState(
                               () {

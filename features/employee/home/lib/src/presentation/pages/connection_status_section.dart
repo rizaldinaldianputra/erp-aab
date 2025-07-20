@@ -73,7 +73,6 @@ class _ConnectionStatusSectionState extends State<ConnectionStatusSection> {
                   Expanded(child: Text(S.of(context).connected_to_network)),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      primary: Colors.white,
                       textStyle: const TextStyle(
                         color: Colors.white,
                         fontSize: Dimens.dp14,
@@ -112,7 +111,6 @@ class _ConnectionStatusSectionState extends State<ConnectionStatusSection> {
                       child: Text(S.of(context).disconnected_from_network)),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      primary: Colors.white,
                       textStyle: const TextStyle(
                         color: Colors.white,
                         fontSize: Dimens.dp14,

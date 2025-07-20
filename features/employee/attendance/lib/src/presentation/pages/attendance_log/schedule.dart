@@ -87,6 +87,7 @@ class _ScheduleLogsPageState extends State<ScheduleLogsPage>
           FutureBuilder(
               future: Future.value(true),
               builder: (context, snapshot) {
+                print(snapshot.data);
                 if (snapshot.hasData) {
                   return _Header(
                     currentDate: _dates[_currentPage],
@@ -116,6 +117,7 @@ class _ScheduleLogsPageState extends State<ScheduleLogsPage>
       builder: (context, state) {
         if (state is ScheduleLogSuccess &&
             state.period == _dates[_currentPage]) {
+          print(state.data);
           return ListView.separated(
             padding: const EdgeInsets.only(
               left: Dimens.dp16,
@@ -164,7 +166,6 @@ class _Header extends StatelessWidget {
       leading: onTapPrevious != null
           ? IconButton(
               onPressed: onTapPrevious,
-              color: Theme.of(context).textTheme.headline6?.color,
               icon: const Icon(Icons.chevron_left),
             )
           : const IconButton(
@@ -180,7 +181,6 @@ class _Header extends StatelessWidget {
       trailing: onTapNext != null
           ? IconButton(
               onPressed: onTapNext,
-              color: Theme.of(context).textTheme.headline6?.color,
               icon: const Icon(Icons.chevron_right),
             )
           : const IconButton(

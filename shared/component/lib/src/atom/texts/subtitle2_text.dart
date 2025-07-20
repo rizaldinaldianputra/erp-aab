@@ -17,7 +17,7 @@ class SubTitle2Text extends StatelessWidget {
   final TextAlign? align;
 
   TextStyle? _getStyle(BuildContext context) =>
-      Theme.of(context).textTheme.headline6;
+      Theme.of(context).textTheme.titleSmall;
 
   @override
   Widget build(BuildContext context) {

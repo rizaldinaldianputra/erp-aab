@@ -164,7 +164,6 @@ class _CreateResignPageState extends State<CreateResignPage> {
                 child: Text(
                   S.of(context).required_input,
                   style: TextStyle(
-                    color: Theme.of(context).errorColor,
                     fontSize: Dimens.dp12,
                   ),
                 ),

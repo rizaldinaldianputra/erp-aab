@@ -185,7 +185,6 @@ class _Header extends StatelessWidget {
       leading: onTapPrevious != null
           ? IconButton(
               onPressed: onTapPrevious,
-              color: Theme.of(context).textTheme.headline6?.color,
               icon: const Icon(Icons.chevron_left),
             )
           : const IconButton(
@@ -201,7 +200,6 @@ class _Header extends StatelessWidget {
       trailing: onTapNext != null
           ? IconButton(
               onPressed: onTapNext,
-              color: Theme.of(context).textTheme.headline6?.color,
               icon: const Icon(Icons.chevron_right),
             )
           : const IconButton(

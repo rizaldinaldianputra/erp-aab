@@ -1,7 +1,7 @@
 import 'package:component/component.dart';
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Badge;
 import 'package:preferences/preferences.dart';
 import 'package:profile/src/presentation/pages/index/sections/add_pengajuan.dart';
 import 'package:profile/src/presentation/pages/index/sections/detail_lembur.dart';
@@ -275,8 +275,6 @@ class _PengajuanLemburState extends State<PengajuanLembur> {
     );
   }
 }
-
-
 
 // class InProccess extends StatefulWidget {
 //   const InProccess({Key? key}) : super(key: key);

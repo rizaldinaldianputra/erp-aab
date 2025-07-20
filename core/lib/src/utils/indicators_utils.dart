@@ -53,7 +53,6 @@ class IndicatorsUtils {
               ],
             ),
             behavior: SnackBarBehavior.floating,
-            backgroundColor: Theme.of(context).errorColor,
           ),
         );
     }

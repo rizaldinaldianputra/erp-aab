@@ -14,11 +14,11 @@ class InputLabel extends StatelessWidget {
       child: RichText(
         text: TextSpan(
             text: label,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleSmall,
             children: [
               TextSpan(
                   text: isRequired ?? false ? ' *' : '',
-                  style: TextStyle(color: Theme.of(context).errorColor))
+                  style: TextStyle(color: Theme.of(context).cardColor))
             ]),
       ),
     );

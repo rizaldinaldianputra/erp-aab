@@ -22,8 +22,8 @@ class _MyAppState extends State<MyApp> {
   ReceivePort port = ReceivePort();
 
   String logStr = '';
-  bool isRunning;
-  LocationDto lastLocation;
+  bool? isRunning;
+  LocationDto? lastLocation;
   bool availableSupportBackgroundPermission = false;
 
   @override
@@ -143,7 +143,7 @@ class _MyAppState extends State<MyApp> {
     );
     String msgStatus = "-";
     if (isRunning != null) {
-      if (isRunning) {
+      if (isRunning ?? false) {
         msgStatus = 'Is running';
       } else {
         msgStatus = 'Is not running';

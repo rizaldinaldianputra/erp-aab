@@ -47,43 +47,45 @@ class AccessBloc extends Bloc<AccessEvent, AccessState> {
   }
 
   Future<bool> _checkRootAccess() async {
-    try {
-      var isRooted = false;
+    // try {
+    //   var isRooted = false;
+    //   // final rootJailbreakDetectorPlugin = RootJailbreakDetector();
 
-      if (Platform.isIOS) {
-        isRooted = await RootDetector.isRooted(busyBox: true);
-      } else {
-        isRooted = await RootDetector.isRooted();
-      }
+    //   if (Platform.isIOS) {
+    //     isRooted = await rootJailbreakDetectorPlugin.isRooted();
+    //   } else {
+    //     isRooted = await rootJailbreakDetectorPlugin.isRooted();
+    //   }
 
-      if (isRooted) {
-        GetIt.I<RecordErrorUseCase>()(RecordErrorParams(
-          library: 'Root Detector',
-          tags: const ['root_detector'],
-          errorMessage: 'Device is rooted',
-          level: SentryLevel.debug,
-          stackTrace: StackTrace.current,
-          exception: Exception('Device is rooted'),
-        ));
-      }
+    //   if (isRooted) {
+    //     GetIt.I<RecordErrorUseCase>()(RecordErrorParams(
+    //       library: 'Root Detector',
+    //       tags: const ['root_detector'],
+    //       errorMessage: 'Device is rooted',
+    //       level: SentryLevel.debug,
+    //       stackTrace: StackTrace.current,
+    //       exception: Exception('Device is rooted'),
+    //     ));
+    //   }
 
-      return isRooted;
-    } on PlatformException catch (_) {
-      log('Error when check Root: ${_.message}');
-      GetIt.I<RecordErrorUseCase>()(RecordErrorParams(
-        library: 'Root Detector',
-        tags: const ['root_detector'],
-        errorMessage: 'Can\'t fetch status is Rooted',
-        level: SentryLevel.debug,
-        stackTrace: StackTrace.current,
-        exception: Exception('Can\'t fetch status is Rooted'),
-      ));
+    //   return isRooted;
+    // } on PlatformException catch (_) {
+    //   log('Error when check Root: ${_.message}');
+    //   GetIt.I<RecordErrorUseCase>()(RecordErrorParams(
+    //     library: 'Root Detector',
+    //     tags: const ['root_detector'],
+    //     errorMessage: 'Can\'t fetch status is Rooted',
+    //     level: SentryLevel.debug,
+    //     stackTrace: StackTrace.current,
+    //     exception: Exception('Can\'t fetch status is Rooted'),
+    //   ));
 
-      return false;
-    } catch (e) {
-      log('ERROR: $e');
-      return false;
-    }
+    //   return false;
+    // } catch (e) {
+    //   log('ERROR: $e');
+    //   return false;
+    // }
+    return false;
   }
 
   @override

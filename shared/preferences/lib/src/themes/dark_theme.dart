@@ -8,7 +8,6 @@ class MaterialDarkTheme {
   /// Get Theme Data
   static ThemeData data(Color primaryColor) => ThemeData.dark().copyWith(
         primaryColor: primaryColor,
-        cardTheme: card,
 //        textTheme: text,
         inputDecorationTheme: inputDecoration,
       );
@@ -24,31 +23,18 @@ class MaterialDarkTheme {
   /// Text Theme
   static TextTheme text = const TextTheme(
     // Use for body text
-    bodyText1: TextStyle(
+    titleLarge: TextStyle(
       fontSize: Dimens.dp12,
     ),
-    bodyText2: TextStyle(
+    titleMedium: TextStyle(
       fontSize: Dimens.dp12,
     ),
     // Use for heading text
-    headline5: TextStyle(
+    titleSmall: TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: Dimens.dp20,
     ),
     // Use for title text
-    headline6: TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: Dimens.dp16,
-    ),
-    // Use for sub title text
-    subtitle1: TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: Dimens.dp14,
-    ),
-    button: TextStyle(
-      fontSize: Dimens.dp16,
-      fontWeight: FontWeight.bold,
-    ),
   );
 
   /// Input Decoration Theme

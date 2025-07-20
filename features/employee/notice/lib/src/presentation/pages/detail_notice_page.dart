@@ -7,6 +7,7 @@ import 'package:dependencies/dependencies.dart';
 import 'package:files/files.dart';
 import 'package:flutter/material.dart';
 import 'package:l10n/l10n.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../../notice.dart';
 
@@ -16,27 +17,42 @@ class DetailNoticePage extends StatefulWidget {
     Key? key,
     required this.notice,
   }) : super(key: key);
+
   @override
-  _DetailNoticePageState createState() => _DetailNoticePageState();
+  State<DetailNoticePage> createState() => _DetailNoticePageState();
 }
 
 class _DetailNoticePageState extends State<DetailNoticePage> {
-  final Completer<PDFViewController> _controller =
-      Completer<PDFViewController>();
+  String? _pdfFilePath;
+  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
 
   Future<Either<Failure, String>> _startDownloadingFile(String url) async {
     final path = await getTemporaryDirectory();
     return GetIt.I<DownloadFileUseCase>().call(
       DownloadFileParams(
         url,
-        fileName: widget.notice.hashCode.toString() + '.pdf',
-        savePath: path.absolute.path +
-            Platform.pathSeparator +
-            widget.notice.hashCode.toString() +
-            '.pdf',
+        fileName: '${widget.notice.hashCode}.pdf',
+        savePath:
+            '${path.path}${Platform.pathSeparator}${widget.notice.hashCode}.pdf',
         withHttpClint: true,
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPDF();
+  }
+
+  Future<void> _loadPDF() async {
+    final result = await _startDownloadingFile(widget.notice.file!);
+    if (result.isRight()) {
+      final filePath = result.getOrElse(() => '');
+      setState(() {
+        _pdfFilePath = filePath;
+      });
+    }
   }
 
   @override
@@ -59,39 +75,13 @@ class _DetailNoticePageState extends State<DetailNoticePage> {
   }
 
   Widget _buildPDFView() {
-    return FutureBuilder<Either<Failure, String>>(
-      future: _startDownloadingFile(widget.notice.file!),
-      builder: (context, snapshot) {
-        if (snapshot.data?.isLeft() ?? false) {
-          return Center(
-            child: PrimaryButton(
-              onPressed: () {
-                setState(() {});
-              },
-              child: Text(S.of(context).reload),
-            ),
-          );
-        } else if (snapshot.hasData && snapshot.data!.isRight()) {
-          return PDFView(
-            filePath: snapshot.data!.getOrElse(() => ''),
-            enableSwipe: true,
-            swipeHorizontal: false,
-            autoSpacing: false,
-            pageFling: false,
-            onRender: (_pages) {},
-            onError: (error) {},
-            onPageError: (page, error) {},
-            onViewCreated: (PDFViewController pdfViewController) {
-              _controller.complete(pdfViewController);
-            },
-            onPageChanged: (page, total) {},
-          );
-        }
+    if (_pdfFilePath == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+    return SfPdfViewer.file(
+      File(_pdfFilePath!),
+      key: _pdfViewerKey,
     );
   }
 

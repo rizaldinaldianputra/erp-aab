@@ -9,9 +9,6 @@ class NotFoundPage extends StatelessWidget {
         children: [
           Text(
             '404 Page Not Found',
-            style: Theme.of(context).textTheme.headline5?.copyWith(
-                  color: Theme.of(context).primaryColor,
-                ),
           ),
           Divider(),
         ],

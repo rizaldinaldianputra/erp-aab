@@ -13,18 +13,13 @@ class AppAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
-        textTheme: TextTheme(
-            button: TextStyle(
-                fontSize: Dimens.dp12,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor)),
+        textTheme: TextTheme(),
       ),
       child: AlertDialog(
         content: body,
         actions: actions,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(Dimens.dp10)),
-        contentTextStyle: Theme.of(context).textTheme.bodyText2,
       ),
     );
   }

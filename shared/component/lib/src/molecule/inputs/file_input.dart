@@ -64,7 +64,7 @@ class _FileInputState extends State<FileInput> {
               right: Radius.circular(Dimens.dp8),
             ),
             color: widget.errorText != null
-                ? Theme.of(context).errorColor
+                ? Theme.of(context).canvasColor
                 : Theme.of(context).primaryColorLight,
           ),
           child: Center(

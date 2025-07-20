@@ -6,7 +6,8 @@ import 'package:dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:l10n/l10n.dart';
 import 'package:preferences/preferences.dart';
-
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import '../../../../../home.dart';
 
 class HeaderClockSection extends StatefulWidget {
@@ -23,50 +24,151 @@ class HeaderClockSection extends StatefulWidget {
 }
 
 class _HeaderClockSectionState extends State<HeaderClockSection> {
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  @override
+  void initState() {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    tz.initializeTimeZones();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScheduleBloc, ScheduleState>(
-      buildWhen: (prev, current) {
-        if (prev != current) {
-          return true;
+    return BlocListener<ScheduleBloc, ScheduleState>(
+      listenWhen: (prev, current) => prev != current,
+      listener: (context, state) async {
+        if (state is ScheduleSuccess && state.data.isNotEmpty) {
+          final prefs = await SharedPreferences.getInstance();
+
+          final startTimeString = state.data.first.timeStart!;
+          final endTimeString = state.data.first.timeEnd!;
+
+          await prefs.remove('starttime');
+          await prefs.remove('endtime');
+
+          // Simpan ke SharedPreferences
+          await prefs.setString('starttime', startTimeString);
+          await prefs.setString('endtime', endTimeString);
+
+          // Ambil kembali dari SharedPreferences
+          final savedStartTime = prefs.getString('starttime');
+          final savedEndTime = prefs.getString('endtime');
+
+          if (savedStartTime != null && savedEndTime != null) {
+            final now = DateTime.now();
+
+            final startParts =
+                savedStartTime.split(':').map(int.parse).toList();
+            final endParts = savedEndTime.split(':').map(int.parse).toList();
+
+            final startDateTime = DateTime(
+              now.year,
+              now.month,
+              now.day,
+              startParts[0],
+              startParts[1],
+              startParts.length > 2 ? startParts[2] : 0,
+            );
+
+            final endDateTime = DateTime(
+              now.year,
+              now.month,
+              now.day,
+              endParts[0],
+              endParts[1],
+              endParts.length > 2 ? endParts[2] : 0,
+            );
+
+            final startNotifTime =
+                startDateTime.subtract(const Duration(minutes: 15));
+            final endNotifTime =
+                endDateTime.subtract(const Duration(minutes: 15));
+
+            if (startNotifTime.isAfter(now)) {
+              await scheduleNotification(
+                startNotifTime,
+                'Reminder Absen Masuk',
+                'Jangan lupa absen masuk! Sesi Anda dimulai dalam 15 menit.',
+              );
+            }
+
+            if (endNotifTime.isAfter(now)) {
+              await scheduleNotification(
+                endNotifTime,
+                'Reminder Absen Pulang',
+                'Jangan lupa absen pulang! Sesi Anda akan berakhir 15 menit lagi.',
+              );
+            }
+
+            // Tampilkan dialog konfirmasi
+            // showDialog(
+            //   context: context,
+            //   builder: (context) => AlertDialog(
+            //     title: const Text('Berhasil Disimpan'),
+            //     content: Text(
+            //       'Waktu notifikasi berhasil disimpan:\n\n'
+            //       'Start Time: $savedStartTime\n'
+            //       'End Time:   $savedEndTime\n\n'
+            //       'Notifikasi akan muncul 15 menit sebelumnya.',
+            //     ),
+            //     actions: [
+            //       TextButton(
+            //         onPressed: () => Navigator.of(context).pop(),
+            //         child: const Text('OK'),
+            //       ),
+            //     ],
+            //   ),
+            // );
+          }
         }
-        return false;
       },
-      builder: (context, state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: SubTitle1Text(
-                    DateFormat('EEE, d MMM y')
-                        .format(DateTime.now())
-                        .toString(),
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                    maxLine: 1,
-                    overflow: TextOverflow.ellipsis,
+      child: Column(
+        children: [
+          BlocBuilder<ScheduleBloc, ScheduleState>(
+            buildWhen: (prev, current) => prev != current,
+            builder: (context, state) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: SubTitle1Text(
+                          DateFormat('EEE, d MMM y')
+                              .format(DateTime.now())
+                              .toString(),
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor),
+                          maxLine: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      _buildSchedule(state),
+                    ],
                   ),
-                ),
-                _buildSchedule(state),
-              ],
-            ),
-            const SizedBox(height: Dimens.dp8),
-            _buildProfileCard(),
-            _buildWarning(),
-            const SizedBox(height: Dimens.dp12),
-            _buildBtnClockIn(),
-          ],
-        );
-      },
+                  const SizedBox(height: Dimens.dp8),
+                  _buildProfileCard(),
+                  _buildWarning(),
+                  const SizedBox(height: Dimens.dp12),
+                  _buildBtnClockIn(),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildSchedule(ScheduleState state) {
     if (state is ScheduleSuccess) {
       if (state.data.isNotEmpty) {
+        print(state.data.first.timeEnd);
         return TitleText(
           '${Utils.durationToClock(
             Utils.durationTimeParse(state.data.first.timeStart),
@@ -265,10 +367,12 @@ class _HeaderClockSectionState extends State<HeaderClockSection> {
       builder: (context, state) {
         if (state is ClockButtonTypeSuccess) {
           if (state.data.isAlreadyClockout) {
-            return PrimaryButton(
-              onPressed: () {},
-              color: StaticColors.green,
-              child: Text(S.current.resolved_attendance),
+            return Expanded(
+              child: PrimaryButton(
+                onPressed: () {},
+                color: StaticColors.green,
+                child: Text(S.current.resolved_attendance),
+              ),
             );
           } else if (state.data.type == ClockButtonType.clockIn) {
             return PrimaryButton(
@@ -304,7 +408,6 @@ class _HeaderClockSectionState extends State<HeaderClockSection> {
                               onPressed:
                                   _showCancelAttendanceDialogConfirmation,
                               style: TextButton.styleFrom(
-                                primary: StaticColors.red,
                                 padding: const EdgeInsets.symmetric(
                                   vertical: Dimens.dp14,
                                   horizontal: Dimens.dp8,
@@ -378,6 +481,31 @@ class _HeaderClockSectionState extends State<HeaderClockSection> {
                 ),
               ],
             ));
+  }
+
+  Future<void> scheduleNotification(
+      DateTime targetTime, String title, String body) async {
+    final androidDetails = AndroidNotificationDetails(
+      'your_channel_id',
+      'Your Channel Name',
+      channelDescription: 'Notification before schedule',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+
+    final notificationDetails = NotificationDetails(android: androidDetails);
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      targetTime.millisecondsSinceEpoch ~/ 1000, // unique id
+      title,
+      body,
+      tz.TZDateTime.from(targetTime, tz.local),
+      notificationDetails,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
   }
 }
 

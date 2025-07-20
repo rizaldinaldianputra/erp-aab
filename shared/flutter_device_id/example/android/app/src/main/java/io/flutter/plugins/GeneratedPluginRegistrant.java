@@ -17,8 +17,13 @@ public final class GeneratedPluginRegistrant {
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     try {
       flutterEngine.getPlugins().add(new space.wisnuwiry.flutter_device_id.FlutterDeviceIdPlugin());
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_device_id, space.wisnuwiry.flutter_device_id.FlutterDeviceIdPlugin", e);
+    }
+    try {
+      flutterEngine.getPlugins().add(new dev.flutter.plugins.integration_test.IntegrationTestPlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin integration_test, dev.flutter.plugins.integration_test.IntegrationTestPlugin", e);
     }
   }
 }

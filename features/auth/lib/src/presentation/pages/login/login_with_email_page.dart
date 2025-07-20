@@ -76,12 +76,12 @@ class _LoginWithEmailPageState extends State<LoginWithEmailPage> {
 
   Future<void> save(var value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("host", value);
+    prefs.setString("host", value ?? '');
   }
 
   Widget _buildUrl(Either<Failure, Uri?>? data) {
     final url = data?.foldRight(null, (r, previous) => r);
-    save(url!.host);
+    save(url?.host);
     return Text(
       url != null ? url.host : _defaultUrl.toString(),
       maxLines: 1,
