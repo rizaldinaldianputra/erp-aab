@@ -69,9 +69,6 @@ dependencies:
     path: ../background_locator
 
 dependency_overrides:
-  intl: ^0.20.2
-  syncfusion_flutter_pdfviewer: ^25.1.41
-  syncfusion_flutter_datepicker: ^30.1.40
   platform: ^3.1.0
 
 dev_dependencies:

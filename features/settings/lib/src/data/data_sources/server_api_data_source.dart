@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:settings/settings.dart';
+import 'package:dio/dio.dart';
 
 abstract class ServerApiDataSource {
   Future<CheckServerModel> getServerStatus(

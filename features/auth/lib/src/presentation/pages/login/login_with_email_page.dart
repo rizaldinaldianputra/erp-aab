@@ -85,6 +85,7 @@ class _LoginWithEmailPageState extends State<LoginWithEmailPage> {
     return Text(
       url != null ? url.host : _defaultUrl.toString(),
       maxLines: 1,
+      style: TextStyle(color: Colors.black),
       overflow: TextOverflow.ellipsis,
     );
   }

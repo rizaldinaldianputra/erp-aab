@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "518691201533",
+    "project_id": "erp-adonara-9748c",
+    "storage_bucket": "erp-adonara-9748c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518691201533:android:d31a01ae1c3d5685297994",
+        "android_client_info": {
+          "package_name": "mobile.trackingworks.io"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518691201533-bgd75i4dem5hdmp4diuiqq7utjak3v31.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mobile.trackingworks.io",
+            "certificate_hash": "b4f0b23da28727df9c0e107cc358779b9ced19ff"
+          }
+        },
+        {
+          "client_id": "518691201533-0vasse8toid7ljsok6khrbb93i1cgfrr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5RktWJB-UGsSapHRX2rh0PdnWNy3EoUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518691201533-0vasse8toid7ljsok6khrbb93i1cgfrr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

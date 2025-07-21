@@ -10,14 +10,17 @@ class ForgotPasswordSection extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(S.of(context).question_forget_pass),
+          Text(
+            S.of(context).question_forget_pass,
+            style: TextStyle(color: Colors.black),
+          ),
           InkWell(
             onTap: () {
               Navigator.pushNamed(context, '/forgot-password');
             },
             child: SubTitle2Text(
               ' ${S.of(context).click_here}',
-              style: TextStyle(color: Theme.of(context).primaryColor),
+              style: TextStyle(color: Colors.blue, fontSize: 12),
             ),
           ),
         ],

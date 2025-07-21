@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:preferences/preferences.dart';
-
-import '../../../component.dart';
 
 class RegularTextInput extends StatelessWidget {
   const RegularTextInput({
@@ -60,90 +57,81 @@ class RegularTextInput extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        label != null ? _buildLabel() : const SizedBox(),
-        Theme(
-          data: Theme.of(context).copyWith(
-            iconTheme: const IconThemeData(
-              size: Dimens.dp10,
+        if (label != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: RichText(
+              text: TextSpan(
+                text: label,
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                ),
+                children: [
+                  if (isRequired == true)
+                    const TextSpan(
+                      text: ' *',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                ],
+              ),
             ),
-            primaryColor: Theme.of(context).textTheme.titleSmall?.color,
           ),
-          child: TextFormField(
-            focusNode: focusNode,
-            controller: controller,
-            obscureText: obscureText ?? false,
-            minLines: minLine,
-            maxLines: maxLine,
-            maxLength: maxLength,
-            onChanged: onChange,
-            onFieldSubmitted: onSubmit,
-            textInputAction: inputAction ?? TextInputAction.done,
-            style: style,
-            keyboardType: inputType,
-            enabled: enable,
-            onTap: onTap,
-            readOnly: readOnly ?? false,
-            inputFormatters: inputFormatters,
-            autofocus: autoFocus ?? false,
-            decoration: InputDecoration(
-              errorText: errorText,
-              prefixIcon: prefixIcon,
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: Dimens.dp6,
-                horizontal: Dimens.dp12,
-              ),
-              hintText: hintText ?? '',
-              suffixIcon: suffix,
-              border: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).primaryColorLight,
-                ),
-                borderRadius: BorderRadius.circular(Dimens.dp4),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).primaryColorLight,
-                ),
-                borderRadius: BorderRadius.circular(Dimens.dp8),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).primaryColorLight,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(Dimens.dp8),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).canvasColor,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(Dimens.dp8),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).canvasColor,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(Dimens.dp8),
-              ),
+        TextFormField(
+          focusNode: focusNode,
+          controller: controller,
+          obscureText: obscureText ?? false,
+          minLines: minLine,
+          maxLines: maxLine,
+          maxLength: maxLength,
+          onChanged: onChange,
+          onFieldSubmitted: onSubmit,
+          textInputAction: inputAction ?? TextInputAction.done,
+          style: style ?? const TextStyle(color: Colors.black),
+          keyboardType: inputType,
+          enabled: enable,
+          onTap: onTap,
+          readOnly: readOnly ?? false,
+          inputFormatters: inputFormatters,
+          autofocus: autoFocus ?? false,
+          decoration: InputDecoration(
+            errorText: errorText,
+            hintText: hintText ?? '',
+            prefixIcon: prefixIcon,
+            suffixIcon: suffix,
+            contentPadding: const EdgeInsets.symmetric(
+              vertical: 12,
+              horizontal: 16,
+            ),
+            filled: background != null,
+            fillColor: background,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(radius ?? 8),
+              borderSide: const BorderSide(color: Colors.grey),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(radius ?? 8),
+              borderSide: const BorderSide(color: Colors.grey),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(radius ?? 8),
+              borderSide: const BorderSide(color: Colors.blue, width: 2),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(radius ?? 8),
+              borderSide: const BorderSide(color: Colors.red),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(radius ?? 8),
+              borderSide: const BorderSide(color: Colors.red, width: 2),
             ),
           ),
         ),
       ],
     );
-  }
-
-  Widget _buildLabel() {
-    if (label != null) {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: Dimens.dp8),
-        child: InputLabel(
-          label: label ?? '',
-          isRequired: isRequired,
-        ),
-      );
-    }
-    return const SizedBox();
   }
 }

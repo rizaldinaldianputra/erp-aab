@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
-
+import 'package:uuid/uuid.dart';
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class AuthHttpInterceptor extends InterceptorsWrapper {
     options.headers.addAll(_optionHeaders);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("ath", 'Bearer $token');
-    prefs.setString("dvc", deviceId!);
+    prefs.setString("dvc", deviceId ?? Uuid().v4());
     prefs.setString("lg", SettingConfig.defaultCountry.code);
     handler.next(options);
   }
@@ -67,32 +67,57 @@ class AuthHttpInterceptor extends InterceptorsWrapper {
   }
 
   Future<String?> _getDeviceID() async {
-    final _cacheImei = GetIt.I<GlobalConfiguration>().getValue('DEVICE_ID');
+    final _config = GetIt.I<GlobalConfiguration>();
+    final cachedDeviceId = _config.getValue('DEVICE_ID');
 
-    if (_cacheImei != null && _cacheImei != 'null' && _cacheImei is String) {
-      return _cacheImei;
+    if (cachedDeviceId != null &&
+        cachedDeviceId != 'null' &&
+        cachedDeviceId is String) {
+      return cachedDeviceId;
     } else {
       try {
         final result = await GetIt.I<FlutterDeviceId>().deviceId;
         log('DEVICE ID: $result');
+
+        String finalDeviceId;
+
         if (result != null && result != 'null') {
-          GetIt.I<GlobalConfiguration>().setValue('DEVICE_ID', result);
+          finalDeviceId = result;
         } else {
+          finalDeviceId =
+              const Uuid().v4(); // generate UUID jika device ID kosong/null
+          log('Generated UUID v4: $finalDeviceId');
+
           GetIt.I<RecordErrorUseCase>()(
             RecordErrorParams(
               library: 'Flutter Device Id',
               tags: const ['Flutter Device Id'],
-              exception: Exception('Can\'t fetch device ID in this device'),
+              exception: Exception('Device ID is null, using UUID instead'),
               stackTrace: StackTrace.current,
-              errorMessage: 'Can\'t fetch device ID in this device',
+              errorMessage: 'Device ID is null, using UUID instead',
             ),
           );
         }
 
-        return result;
-      } catch (e) {
-        log('ERROR: $e');
-        return null;
+        _config.setValue('DEVICE_ID', finalDeviceId);
+        return finalDeviceId;
+      } catch (e, stackTrace) {
+        final fallbackId = const Uuid().v4();
+        log('ERROR getting device ID: $e, fallback UUID: $fallbackId');
+
+        GetIt.I<RecordErrorUseCase>()(
+          RecordErrorParams(
+            library: 'Flutter Device Id',
+            tags: const ['Flutter Device Id'],
+            exception: e is Exception ? e : Exception(e.toString()),
+            stackTrace: stackTrace,
+            errorMessage:
+                'Exception occurred while fetching device ID, fallback UUID used',
+          ),
+        );
+
+        _config.setValue('DEVICE_ID', fallbackId);
+        return fallbackId;
       }
     }
   }

@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:async';
-import 'package:sentry/sentry.dart';
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:settings/settings.dart';

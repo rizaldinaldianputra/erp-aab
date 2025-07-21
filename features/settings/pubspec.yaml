@@ -23,6 +23,7 @@ dependencies:
     path: ../../shared/l10n
   component:
     path: ../../shared/component
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:

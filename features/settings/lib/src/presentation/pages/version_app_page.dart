@@ -39,10 +39,10 @@ class _VersionAppPageState extends State<VersionAppPage> {
   void _refreshConfig() async {
     try {
       FirebaseRemoteConfig.instance.fetchAndActivate();
-      // final url = await GetIt.I<RemoteConfigService>().getValue('base_url_api');
+      final url = await GetIt.I<RemoteConfigService>().getValue('base_url_api');
 
-      // GetIt.I<Dio>().options.baseUrl = url.asString();
-      // RemoteConfigService().saveBaseURL(url.asString());
+      GetIt.I<Dio>().options.baseUrl = url!.asString();
+      RemoteConfigService().saveBaseURL(url.asString());
     } catch (e, stackTrace) {
       log('ERROR REMOTE CONFIG: $e', error: stackTrace);
     }

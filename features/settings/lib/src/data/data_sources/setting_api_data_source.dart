@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
+import 'package:dio/dio.dart';
 
 // ignore: one_member_abstracts
 abstract class SettingApiDataSource {

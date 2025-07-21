@@ -41,8 +41,7 @@
     </intent>
   </queries>
   <application 
-  
-    android:name="${applicationName}" 
+    android:name="${applicationName}"
     android:label="ERP ABB"
     android:icon="@mipmap/ic_launcher"
     android:allowBackup="false"
@@ -176,13 +175,6 @@
         android:theme="@style/Theme.AppCompat.Light"
         android:screenOrientation="portrait"
             />
-    <receiver android:name="rekab.app.background_locator.BootBroadcastReceiver"
-        android:exported="true"
-        android:enabled="true">
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED"/>
-        </intent-filter>
-    </receiver>
     <service
         android:name="rekab.app.background_locator.IsolateHolderService"
         android:permission="android.permission.FOREGROUND_SERVICE"

@@ -2,10 +2,12 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
+    id("com.google.gms.google-services") // 🔥 Tambahkan ini
+
 }
 
 android {
-    namespace = "com.example.trackingworks"
+    namespace = "mobile.trackingworks.io"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"
 
@@ -20,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.trackingworks"
+        applicationId = "mobile.trackingworks.io"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -39,9 +41,9 @@ flutter {
 }
 
 // ✅ Tambahkan ini di luar blok `android`:
+
 dependencies {
-    // Dependency untuk core library desugaring
-dependencies {
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-messaging")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
-}
 }
