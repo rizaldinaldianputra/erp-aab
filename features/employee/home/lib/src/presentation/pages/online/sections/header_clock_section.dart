@@ -24,9 +24,6 @@ class HeaderClockSection extends StatefulWidget {
 }
 
 class _HeaderClockSectionState extends State<HeaderClockSection> {
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
   @override
   void initState() {
     WidgetsFlutterBinding.ensureInitialized();
@@ -87,41 +84,21 @@ class _HeaderClockSectionState extends State<HeaderClockSection> {
             final endNotifTime =
                 endDateTime.subtract(const Duration(minutes: 15));
 
-            // if (startNotifTime.isAfter(now)) {
-            //   await scheduleNotification(
-            //     startNotifTime,
-            //     'Reminder Absen Masuk',
-            //     'Jangan lupa absen masuk! Sesi Anda dimulai dalam 15 menit.',
-            //   );
-            // }
+            if (startNotifTime.isAfter(now)) {
+              await scheduleNotification(
+                startNotifTime,
+                'Reminder Absen Masuk',
+                'Jangan lupa absen masuk! Sesi Anda dimulai dalam 15 menit.',
+              );
+            }
 
-            // if (endNotifTime.isAfter(now)) {
-            //   await scheduleNotification(
-            //     endNotifTime,
-            //     'Reminder Absen Pulang',
-            //     'Jangan lupa absen pulang! Sesi Anda akan berakhir 15 menit lagi.',
-            //   );
-            // }
-
-            // Tampilkan dialog konfirmasi
-            // showDialog(
-            //   context: context,
-            //   builder: (context) => AlertDialog(
-            //     title: const Text('Berhasil Disimpan'),
-            //     content: Text(
-            //       'Waktu notifikasi berhasil disimpan:\n\n'
-            //       'Start Time: $savedStartTime\n'
-            //       'End Time:   $savedEndTime\n\n'
-            //       'Notifikasi akan muncul 15 menit sebelumnya.',
-            //     ),
-            //     actions: [
-            //       TextButton(
-            //         onPressed: () => Navigator.of(context).pop(),
-            //         child: const Text('OK'),
-            //       ),
-            //     ],
-            //   ),
-            // );
+            if (endNotifTime.isAfter(now)) {
+              await scheduleNotification(
+                endNotifTime,
+                'Reminder Absen Pulang',
+                'Jangan lupa absen pulang! Sesi Anda akan berakhir 15 menit lagi.',
+              );
+            }
           }
         }
       },
@@ -137,16 +114,12 @@ class _HeaderClockSectionState extends State<HeaderClockSection> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        child: SubTitle1Text(
-                          DateFormat('EEE, d MMM y')
-                              .format(DateTime.now())
-                              .toString(),
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                          maxLine: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      Text(
+                        DateFormat('EEE, d MMM y')
+                            .format(DateTime.now())
+                            .toString(),
+                        style: TextStyle(color: Colors.blue, fontSize: 16),
+                        overflow: TextOverflow.ellipsis,
                       ),
                       _buildSchedule(state),
                     ],
@@ -367,76 +340,69 @@ class _HeaderClockSectionState extends State<HeaderClockSection> {
       builder: (context, state) {
         if (state is ClockButtonTypeSuccess) {
           if (state.data.isAlreadyClockout) {
-            return Expanded(
-              child: PrimaryButton(
-                onPressed: () {},
-                color: StaticColors.green,
-                child: Text(S.current.resolved_attendance),
+            return PrimaryButton(
+              onPressed: () {},
+              child: Text(
+                S.current.resolved_attendance,
+                style: TextStyle(color: Colors.white),
               ),
             );
           } else if (state.data.type == ClockButtonType.clockIn) {
             return PrimaryButton(
               onPressed: widget.onTapClockIn,
-              color: Theme.of(context).primaryColor,
-              child: Text(S.of(context).clock_in),
+              child: Text(
+                S.of(context).clock_in,
+                style: TextStyle(color: Colors.white),
+              ),
             );
           } else {
-            return IntrinsicHeight(
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        if (state.data.breakType == BreakType.end) ...[
-                          Expanded(child: _buildFinishBreakeSliderButton()),
-                        ] else ...[
-                          Expanded(child: _buildStartBreakeSliderButton()),
-                        ],
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: Dimens.dp8),
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        if (state.data.messageType ==
-                            ClockMessageType.clockOut) ...[
-                          Expanded(
-                            child: TextButton(
-                              onPressed:
-                                  _showCancelAttendanceDialogConfirmation,
-                              style: TextButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: Dimens.dp14,
-                                  horizontal: Dimens.dp8,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(Dimens.dp10),
-                                ),
-                              ),
-                              child: Text(
-                                S.of(context).cancel_attendance,
-                                style: const TextStyle(fontSize: Dimens.dp14),
-                              ),
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    if (state.data.breakType == BreakType.end) ...[
+                      Expanded(child: _buildFinishBreakeSliderButton()),
+                    ] else ...[
+                      Expanded(child: _buildStartBreakeSliderButton()),
+                    ],
+                  ],
+                ),
+                const SizedBox(height: Dimens.dp8),
+                Row(
+                  children: [
+                    if (state.data.messageType ==
+                        ClockMessageType.clockOut) ...[
+                      Expanded(
+                        child: TextButton(
+                          onPressed: _showCancelAttendanceDialogConfirmation,
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: Dimens.dp14,
+                              horizontal: Dimens.dp8,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(Dimens.dp10),
                             ),
                           ),
-                          const SizedBox(width: Dimens.dp16),
-                        ],
-                        Expanded(
-                          child: PrimaryButton(
-                            onPressed: widget.onTapClockOut,
-                            color: StaticColors.red,
-                            child: Text(S.of(context).clock_out),
+                          child: Text(
+                            S.of(context).cancel_attendance,
+                            style: const TextStyle(fontSize: Dimens.dp14),
                           ),
                         ),
-                      ],
+                      ),
+                      const SizedBox(width: Dimens.dp16),
+                    ],
+                    Expanded(
+                      child: PrimaryButton(
+                        onPressed: widget.onTapClockOut,
+                        color: StaticColors.red,
+                        child: Text(S.of(context).clock_out),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             );
           }
         } else if (state is ClockButtonTypeFailure) {
@@ -483,29 +449,16 @@ class _HeaderClockSectionState extends State<HeaderClockSection> {
             ));
   }
 
-  // Future<void> scheduleNotification(
-  //     DateTime targetTime, String title, String body) async {
-  //   final androidDetails = AndroidNotificationDetails(
-  //     'your_channel_id',
-  //     'Your Channel Name',
-  //     channelDescription: 'Notification before schedule',
-  //     importance: Importance.max,
-  //     priority: Priority.high,
-  //   );
-
-  //   final notificationDetails = NotificationDetails(android: androidDetails);
-
-  //   await flutterLocalNotificationsPlugin.zonedSchedule(
-  //     targetTime.millisecondsSinceEpoch ~/ 1000, // unique id
-  //     title,
-  //     body,
-  //     tz.TZDateTime.from(targetTime, tz.local),
-  //     notificationDetails, androidAllowWhileIdle: true,
-  //     uiLocalNotificationDateInterpretation:
-  //         UILocalNotificationDateInterpretation.absoluteTime,
-  //     matchDateTimeComponents: DateTimeComponents.time,
-  //   );
-  // }
+  Future<void> scheduleNotification(
+      DateTime targetTime, String title, String body) async {
+    final androidDetails = AndroidNotificationDetails(
+      'your_channel_id',
+      'Your Channel Name',
+      channelDescription: 'Notification before schedule',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+  }
 }
 
 extension _ClockMessageTypeX on ClockMessageType {

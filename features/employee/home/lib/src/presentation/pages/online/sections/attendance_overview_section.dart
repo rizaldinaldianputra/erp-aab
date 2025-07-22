@@ -23,7 +23,7 @@ class AttendanceOverviewSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: SubTitle1Text(
+                  child: SubTitle2Text(
                     '${S.of(context).attendance_overview} '
                     '(${DateFormat('MMM y').format(DateTime.now())})',
                     maxLine: 1,

@@ -16,14 +16,15 @@ class SubTitle2Text extends StatelessWidget {
   final TextOverflow? overflow;
   final TextAlign? align;
 
-  TextStyle? _getStyle(BuildContext context) =>
-      Theme.of(context).textTheme.titleSmall;
-
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: _getStyle(context)?.merge(style),
+      style: TextStyle(
+        fontSize: 16,
+        color: Colors.black,
+        decoration: TextDecoration.none,
+      ),
       maxLines: maxLine,
       overflow: overflow,
       textAlign: align,

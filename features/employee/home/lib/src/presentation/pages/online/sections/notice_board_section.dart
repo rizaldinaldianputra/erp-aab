@@ -25,7 +25,7 @@ class _NoticeBoardSectionState extends State<NoticeBoardSection> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: SubTitle1Text(
+                  child: SubTitle2Text(
                     S.of(context).notice_board,
                     maxLine: 1,
                     overflow: TextOverflow.ellipsis,

@@ -103,13 +103,13 @@ class AttendanceLogCard extends StatelessWidget {
 
   Widget? _buildTypeBadge(BuildContext context) {
     return Card(
-      color: StaticColors.blue.withOpacity(0.3),
+      color: Colors.blue,
       child: const Padding(
         padding: EdgeInsets.symmetric(vertical: Dimens.dp4, horizontal: 8.0),
         child: SmallText(
           'NORMAL',
-          style:
-              TextStyle(color: StaticColors.blue, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: StaticColors.black5, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -153,9 +153,9 @@ class AttendanceLogCard extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            SubTitle1Text(
+            Text(
               DateFormat('dd').format(date),
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white, fontSize: 18),
             ),
           ],
         ),

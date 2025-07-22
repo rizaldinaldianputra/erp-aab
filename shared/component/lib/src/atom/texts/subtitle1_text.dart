@@ -23,7 +23,11 @@ class SubTitle1Text extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: _getStyle(context)?.merge(style),
+      style: TextStyle(
+        fontSize: 16,
+        color: Colors.black,
+        decoration: TextDecoration.none,
+      ),
       maxLines: maxLine,
       overflow: overflow,
       textAlign: align,

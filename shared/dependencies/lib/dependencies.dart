@@ -12,6 +12,7 @@ export 'package:firebase_remote_config/firebase_remote_config.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:flutter_device_id/flutter_device_id.dart';
 export 'package:formz/formz.dart';
+export 'package:flutter_localizations/flutter_localizations.dart';
 export 'package:geolocator/geolocator.dart' hide ServiceStatus;
 export 'package:get_it/get_it.dart';
 export 'package:google_maps_flutter/google_maps_flutter.dart';

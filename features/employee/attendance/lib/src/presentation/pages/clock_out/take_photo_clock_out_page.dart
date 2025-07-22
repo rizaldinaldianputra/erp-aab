@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../attendance.dart';
-import '../take_photo_page.dart';
 
 class TakePhotoClockOutPage extends StatefulWidget {
   const TakePhotoClockOutPage({
@@ -20,14 +20,37 @@ class TakePhotoClockOutPage extends StatefulWidget {
 }
 
 class _TakePhotoClockOutPageState extends State<TakePhotoClockOutPage> {
-  late UploadPhotoBloc _bloc;
+  late final UploadPhotoBloc _bloc;
   File? _currentFile;
 
   @override
   void initState() {
+    super.initState();
     _bloc = GetIt.I<UploadPhotoBloc>();
     _bloc.add(CancelUploadPhotoEvent());
-    super.initState();
+    _openCamera();
+  }
+
+  Future<void> _openCamera() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    if (pickedFile != null) {
+      final imageFile = File(pickedFile.path);
+
+      setState(() {
+        _currentFile = imageFile;
+      });
+
+      _bloc.add(GetUploadPhotoEvent(
+        image: imageFile,
+        date: DateTime.now(),
+        type: AttendanceClockType.clockOut,
+        workingFrom: widget.workingFrom,
+      ));
+    } else {
+      if (mounted) Navigator.pop(context);
+    }
   }
 
   @override
@@ -37,50 +60,35 @@ class _TakePhotoClockOutPageState extends State<TakePhotoClockOutPage> {
         _bloc.add(CancelUploadPhotoEvent());
         return true;
       },
-      child: BlocProvider(
-        create: (context) => _bloc,
+      child: BlocProvider.value(
+        value: _bloc,
         child: Scaffold(
-          body: _buildBody(),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBody() {
-    return BlocListener<UploadPhotoBloc, UploadPhotoState>(
-      listener: (context, state) {
-        if (state is UploadPhotoSuccess) {
-          if (mounted) {
-            IndicatorsUtils.hideCurrentSnackBar();
-          }
-          Navigator.pushReplacementNamed(
-            context,
-            '/attendance/clock-out/check-placement',
-            arguments: {
-              'imageId': state.data.id,
-              'working_from': state.data.workingFrom,
+          body: BlocListener<UploadPhotoBloc, UploadPhotoState>(
+            listener: (context, state) {
+              if (state is UploadPhotoSuccess) {
+                if (mounted) IndicatorsUtils.hideCurrentSnackBar();
+                Navigator.pushReplacementNamed(
+                  context,
+                  '/attendance/clock-out/check-placement',
+                  arguments: {
+                    'imageId': state.data.id,
+                    'working_from': state.data.workingFrom,
+                  },
+                );
+              } else if (state is UploadPhotoLoading) {
+                IndicatorsUtils.showLoadingSnackBar(context);
+              } else if (state is UploadPhotoFailure) {
+                IndicatorsUtils.showErrorSnackBar(
+                    context, state.failure.message);
+              }
             },
-          );
-        } else if (state is UploadPhotoLoading) {
-          IndicatorsUtils.showLoadingSnackBar(context);
-        } else if (state is UploadPhotoFailure) {
-          IndicatorsUtils.showErrorSnackBar(context, state.failure.message);
-        }
-      },
-      child: TakePhotoPage(
-        initialImage: _currentFile,
-        onCapture: (image) {
-          setState(() {
-            _currentFile = image;
-          });
-
-          _bloc.add(GetUploadPhotoEvent(
-            image: image,
-            date: DateTime.now(),
-            type: AttendanceClockType.clockOut,
-            workingFrom: widget.workingFrom,
-          ));
-        },
+            child: Center(
+              child: _currentFile != null
+                  ? Image.file(_currentFile!)
+                  : const Text("Membuka kamera..."),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -88,9 +96,7 @@ class _TakePhotoClockOutPageState extends State<TakePhotoClockOutPage> {
   @override
   void dispose() {
     _bloc.close();
-    if (mounted) {
-      IndicatorsUtils.hideCurrentSnackBar();
-    }
+    if (mounted) IndicatorsUtils.hideCurrentSnackBar();
     super.dispose();
   }
 }

@@ -38,6 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return BlocProvider(
       create: (context) => _profileBloc,
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(S.of(context).profile),
         ),

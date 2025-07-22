@@ -75,9 +75,9 @@ class ScheduleLogCard extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            SubTitle1Text(
+            Text(
               DateFormat('dd').format(data.date),
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
           ],
         ),

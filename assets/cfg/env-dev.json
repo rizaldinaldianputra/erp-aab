@@ -1,5 +1,5 @@
 {
-    "base_url":"https://demo.beetlehr.com/api/v1",
+    "base_url":"https://erp.adonara.co.id/api/v1",
     "app_name": "ERP ABB",
     "company_name": "PT Adonara Bakti Bangsa",
     "company_logo": "assets/images/logo_abb.png",

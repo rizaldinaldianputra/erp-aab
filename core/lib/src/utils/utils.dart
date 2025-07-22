@@ -108,10 +108,7 @@ class Utils {
 
   /// Price formatter for Rupiah
   static String? rupiahFormatter(double? price) {
-    final formatCurrency = NumberFormat.simpleCurrency(
-      locale: 'IDR',
-      decimalDigits: 0,
-    );
+    final formatCurrency = NumberFormat.currency(locale: 'id_ID', symbol: 'Rp');
 
     if (price != null) {
       return formatCurrency.format(price);

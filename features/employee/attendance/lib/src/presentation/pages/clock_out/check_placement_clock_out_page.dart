@@ -23,16 +23,16 @@ class CheckPlacementClockOutPage extends StatefulWidget {
 
 class _CheckPlacementClockOutPageState
     extends State<CheckPlacementClockOutPage> {
-  late CheckPlacementBloc _checkPlacementBloc;
-  late AcceptClockBloc _acceptClockBloc;
+  late final CheckPlacementBloc _checkPlacementBloc;
+  late final AcceptClockBloc _acceptClockBloc;
   ClockBodyModel? _sendData;
 
   @override
   void initState() {
+    super.initState();
     _checkPlacementBloc = GetIt.I<CheckPlacementBloc>();
     _acceptClockBloc = GetIt.I<AcceptClockBloc>();
     _initLocation();
-    super.initState();
   }
 
   void _initLocation() async {
@@ -46,7 +46,7 @@ class _CheckPlacementClockOutPageState
       ));
     } else {
       Geolocator.openLocationSettings();
-      Navigator.of(context).pop();
+      if (mounted) Navigator.of(context).pop();
     }
   }
 
@@ -54,11 +54,11 @@ class _CheckPlacementClockOutPageState
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CheckPlacementBloc>(
-          create: (_) => _checkPlacementBloc,
+        BlocProvider<CheckPlacementBloc>.value(
+          value: _checkPlacementBloc,
         ),
-        BlocProvider<AcceptClockBloc>(
-          create: (_) => _acceptClockBloc,
+        BlocProvider<AcceptClockBloc>.value(
+          value: _acceptClockBloc,
         ),
       ],
       child: Scaffold(
@@ -68,22 +68,16 @@ class _CheckPlacementClockOutPageState
             if (state is AcceptClockLoading) {
               IndicatorsUtils.showLoadingSnackBar(context);
             } else if (state is AcceptClockFailure) {
-              if (mounted) {
-                IndicatorsUtils.hideCurrentSnackBar();
-              }
+              if (mounted) IndicatorsUtils.hideCurrentSnackBar();
               IndicatorsUtils.showErrorSnackBar(context, state.failure.message);
             } else if (state is AcceptClockSuccess) {
-              if (mounted) {
-                IndicatorsUtils.hideCurrentSnackBar();
-              }
+              if (mounted) IndicatorsUtils.hideCurrentSnackBar();
               Navigator.pushNamed(context, '/attendance/clock-out', arguments: {
                 'data': state.data,
                 'clockBody': _sendData,
               });
             } else {
-              if (mounted) {
-                IndicatorsUtils.hideCurrentSnackBar();
-              }
+              if (mounted) IndicatorsUtils.hideCurrentSnackBar();
             }
           },
           child: BlocBuilder<CheckPlacementBloc, CheckPlacementState>(
@@ -107,7 +101,7 @@ class _CheckPlacementClockOutPageState
                   ),
                 );
               } else {
-                return const LoadingPlacementSection();
+                return const Center(child: CircularProgressIndicator());
               }
             },
           ),
@@ -135,9 +129,7 @@ class _CheckPlacementClockOutPageState
 
   @override
   void dispose() {
-    if (mounted) {
-      IndicatorsUtils.hideCurrentSnackBar();
-    }
+    if (mounted) IndicatorsUtils.hideCurrentSnackBar();
     super.dispose();
   }
 }

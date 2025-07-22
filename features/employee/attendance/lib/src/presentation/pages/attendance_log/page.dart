@@ -46,15 +46,21 @@ class _AttendanceLogPageState extends State<AttendanceLogPage> {
               ],
             ),
           ),
-          body: TabBarView(
-            children: [
-              const ScheduleLogsPage(),
-              LogsPage(
-                logStatus: widget.logFilter,
-              ),
-            ],
-            physics: const BouncingScrollPhysics(),
+          body: SafeArea(
+            child: TabBarView(
+              children: [
+                const ScheduleLogsPage(),
+                LogsPage(
+                  logStatus: widget.logFilter,
+                ),
+              ],
+              physics: const BouncingScrollPhysics(),
+            ),
           ),
+          bottomNavigationBar: SafeArea(
+              child: Container(
+            height: 1,
+          )),
         ),
       ),
     );

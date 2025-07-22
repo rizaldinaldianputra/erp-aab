@@ -105,8 +105,16 @@ class _ApprovalPageState extends State<ApprovalHeaderSection>
       child: Scaffold(
         appBar: TabBar(
           tabs: [
-            Tab(child: Text("Overtime Aproval")),
-            Tab(child: Text("Leave Aproval")),
+            Tab(
+                child: Text(
+              "Overtime Aproval",
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            )),
+            Tab(
+                child: Text(
+              "Leave Aproval",
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            )),
           ],
         ),
         backgroundColor: Colors.white,
@@ -151,7 +159,7 @@ class _ApprovalPageState extends State<ApprovalHeaderSection>
                                         child: SmallText(
                                           totalItemFilter.toString(),
                                           style: const TextStyle(
-                                              color: Colors.white),
+                                              color: Colors.black),
                                         ),
                                       )
                                 : const SizedBox(),
@@ -165,7 +173,7 @@ class _ApprovalPageState extends State<ApprovalHeaderSection>
                                   style: TextStyle(
                                       color: _icons[index] != null
                                           ? totalItemFilter! > 0
-                                              ? Theme.of(context).primaryColor
+                                              ? Colors.black
                                               : const Color.fromARGB(
                                                   255, 136, 136, 136)
                                           : _getForegroundColor(index),
@@ -178,7 +186,7 @@ class _ApprovalPageState extends State<ApprovalHeaderSection>
                               side: BorderSide(
                                   color: _icons[index] != null
                                       ? totalItemFilter! > 0
-                                          ? Theme.of(context).primaryColor
+                                          ? Colors.black
                                           : Colors.grey[200]
                                       : _getBackgroundColor(index),
                                   width: 0.7),

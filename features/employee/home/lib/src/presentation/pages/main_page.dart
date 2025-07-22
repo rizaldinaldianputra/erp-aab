@@ -223,6 +223,7 @@ class _MainPageState extends State<_MainNavigation> {
       child: BlocBuilder<BottomNavBloc, int>(
         builder: (context, state) {
           return Scaffold(
+            backgroundColor: Colors.white,
             body: _buildBody(state),
             bottomNavigationBar: _buildBottomNav(state),
           );
