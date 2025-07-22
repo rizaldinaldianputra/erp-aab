@@ -15,21 +15,24 @@ class EarningSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(Dimens.dp16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SubTitle2Text('Earning'),
-          const SizedBox(height: Dimens.dp16),
-          _buildComponent(),
-          const Divider(),
-          const SizedBox(height: Dimens.dp8),
-          Row(
-            children: [
-              const Expanded(child: SubTitle2Text('Total Earning')),
-              SubTitle2Text(Utils.rupiahFormatter(data.totalEarning) ?? '')
-            ],
-          ),
-        ],
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SubTitle2Text('Earning'),
+            const SizedBox(height: Dimens.dp16),
+            _buildComponent(),
+            const Divider(),
+            const SizedBox(height: Dimens.dp8),
+            Row(
+              children: [
+                const Expanded(child: SubTitle2Text('Total Earning')),
+                SubTitle2Text(Utils.rupiahFormatter(data.totalEarning) ?? '')
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -45,8 +48,15 @@ class EarningSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: Dimens.dp8),
       child: Row(
         children: [
-          Expanded(child: Text(data.name)),
-          Text(Utils.rupiahFormatter(data.amount) ?? '')
+          Expanded(
+              child: Text(
+            data.name,
+            style: TextStyle(color: Colors.black),
+          )),
+          Text(
+            Utils.rupiahFormatter(data.amount) ?? '',
+            style: TextStyle(color: Colors.black),
+          )
         ],
       ),
     );

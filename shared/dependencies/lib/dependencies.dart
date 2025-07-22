@@ -9,6 +9,7 @@ export 'package:firebase_core/firebase_core.dart';
 export 'package:firebase_crashlytics/firebase_crashlytics.dart';
 export 'package:firebase_performance/firebase_performance.dart';
 export 'package:firebase_remote_config/firebase_remote_config.dart';
+export 'package:open_file/open_file.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:flutter_device_id/flutter_device_id.dart';
 export 'package:formz/formz.dart';

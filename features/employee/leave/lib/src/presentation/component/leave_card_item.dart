@@ -29,13 +29,25 @@ class LeaveCardItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SubTitle2Text(data.leaveType),
+                      Text(
+                        data.leaveType,
+                        style: TextStyle(color: Colors.black),
+                      ),
                       const SizedBox(height: Dimens.dp8),
                       Row(
                         children: [
-                          Text('${data.startDate}  •  '),
-                          SmallText(data.totalDate.toString()),
-                          SmallText(' ${S.of(context).days}'),
+                          Text(
+                            '${data.startDate}  •  ',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          Text(
+                            data.totalDate.toString(),
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          Text(
+                            ' ${S.of(context).days}',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ],
                       ),
                     ],

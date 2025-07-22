@@ -37,7 +37,8 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
       floating: true,
       expandedHeight: 120.0,
       bottom: TabBar(
-        indicatorColor: StaticColors.red,
+        labelStyle: TextStyle(fontSize: 16),
+        indicatorColor: StaticColors.orange,
         tabs: [
           Tab(text: S.of(context).in_process),
           Tab(text: S.of(context).completed),

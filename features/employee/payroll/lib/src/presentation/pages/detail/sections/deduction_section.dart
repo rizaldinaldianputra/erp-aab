@@ -45,8 +45,15 @@ class DeductionSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: Dimens.dp8),
       child: Row(
         children: [
-          Expanded(child: Text(data.name)),
-          Text(Utils.rupiahFormatter(data.amount) ?? '')
+          Expanded(
+              child: Text(
+            data.name,
+            style: TextStyle(color: Colors.black),
+          )),
+          Text(
+            Utils.rupiahFormatter(data.amount) ?? '',
+            style: TextStyle(color: Colors.black),
+          )
         ],
       ),
     );

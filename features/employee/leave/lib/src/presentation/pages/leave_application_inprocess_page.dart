@@ -202,9 +202,15 @@ class _SuccessContent extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (_, i) {
-        return LeaveCardItem(
-          data: data[i],
-          onTap: () => onTapItem(data[i]),
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            elevation: 1,
+            child: LeaveCardItem(
+              data: data[i],
+              onTap: () => onTapItem(data[i]),
+            ),
+          ),
         );
       },
       separatorBuilder: (_, __) => const Divider(),
