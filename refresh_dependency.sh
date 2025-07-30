@@ -4,7 +4,6 @@ flutter clean
 cd shared/dependencies && flutter clean && flutter pub get && cd ../../
 cd core && flutter clean && flutter pub get && cd ../
 cd shared/component && flutter clean && flutter pub get && cd ../../
-cd shared/flutter_device_id && flutter clean && flutter pub get && cd ../../
 cd shared/l10n && flutter clean && flutter pub get && cd ../../
 cd shared/preferences && flutter clean && flutter pub get && cd ../../
 cd features/apps && flutter clean && flutter pub get && cd ../../

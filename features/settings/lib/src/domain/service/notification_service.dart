@@ -16,7 +16,13 @@ class PushNotificationService {
   static const _initializationSettingsAndroid =
       AndroidInitializationSettings('ic_stat_icon');
 
-  static final _initializationSettingsDarwin = DarwinInitializationSettings();
+  // Pengaturan untuk Darwin (iOS & macOS)
+  static final _initializationSettingsDarwin = DarwinInitializationSettings(
+    // Meminta izin dasar saat aplikasi pertama kali dijalankan
+    requestAlertPermission: true,
+    requestBadgePermission: true,
+    requestSoundPermission: true,
+  );
 
   static const _notificationChannel = AndroidNotificationChannel(
     'high_importance_channel', // id
@@ -26,11 +32,18 @@ class PushNotificationService {
     importance: Importance.max,
   );
 
-  static const _initializationSettings = InitializationSettings(
+  // --- PERBAIKAN DI SINI ---
+  // Sekarang kita menyertakan pengaturan untuk iOS
+  static final _initializationSettings = InitializationSettings(
     android: _initializationSettingsAndroid,
+    iOS: _initializationSettingsDarwin, // <-- BARIS YANG DIPERBAIKI
   );
+  // --- AKHIR PERBAIKAN ---
 
   Future initialize() async {
+    // Tidak perlu lagi _requestPermission() dari _fcm di sini karena
+    // local notifications akan menanganinya saat inisialisasi di iOS.
+    // Jika Anda masih memerlukannya untuk fitur FCM lain, biarkan saja.
     if (Platform.isIOS) {
       _requestPermission();
     }
@@ -76,6 +89,12 @@ class PushNotificationService {
                       icon: android.smallIcon,
                     )
                   : null,
+              // Tambahkan detail notifikasi iOS jika perlu kustomisasi
+              iOS: const DarwinNotificationDetails(
+                presentAlert: true,
+                presentBadge: true,
+                presentSound: true,
+              ),
             ),
           );
         }

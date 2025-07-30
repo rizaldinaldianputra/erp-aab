@@ -32,7 +32,10 @@ class _TakePhotoClockInPageState extends State<TakePhotoClockInPage> {
 
   Future<void> _openCamera() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.camera,
+      preferredCameraDevice: CameraDevice.front, // Kamera depan
+    );
 
     if (!mounted) return;
 

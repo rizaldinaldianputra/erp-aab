@@ -32,7 +32,7 @@ class _TakePhotoPageState extends State<TakePhotoPage> {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       if (mounted) {
-        _onCapture();
+        // _onCapture();
       }
     });
   }
@@ -85,7 +85,7 @@ class _TakePhotoPageState extends State<TakePhotoPage> {
         color: Colors.white.withOpacity(0.3),
       ),
       child: InkWell(
-        onTap: _onCapture,
+        // onTap: _onCapture,
         borderRadius: BorderRadius.circular(Dimens.dp50),
         child: Container(
           margin: const EdgeInsets.all(Dimens.dp8),
@@ -153,24 +153,24 @@ class _TakePhotoPageState extends State<TakePhotoPage> {
     );
   }
 
-  void _onCapture() async {
-    try {
-      final file = await NativeCamera.takePhoto(
-          context, CameraParams(lensType: LensType.front));
+  // void _onCapture() async {
+  //   try {
+  //     final file = await NativeCamera.takePhoto(
+  //         context, CameraParams(lensType: LensType.front));
 
-      if (widget.onCapture != null && file != null) {
-        if (widget.showLoadingOnCapture) {
-          IndicatorsUtils.showLoadingSnackBar(context);
-        }
-        widget.onCapture?.call(file);
-        if (mounted) setState(() {});
-      } else {
-        Navigator.of(context).pop();
-      }
-    } catch (e) {
-      _logError(e);
-    }
-  }
+  //     if (widget.onCapture != null && file != null) {
+  //       if (widget.showLoadingOnCapture) {
+  //         IndicatorsUtils.showLoadingSnackBar(context);
+  //       }
+  //       widget.onCapture?.call(file);
+  //       if (mounted) setState(() {});
+  //     } else {
+  //       Navigator.of(context).pop();
+  //     }
+  //   } catch (e) {
+  //     _logError(e);
+  //   }
+  // }
 
   @override
   void dispose() {

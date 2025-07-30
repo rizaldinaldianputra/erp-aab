@@ -45,7 +45,7 @@
   <application 
     android:name="${applicationName}"
     android:label="ERP ABB"
-    android:icon="@mipmap/ic_launcher"
+    android:icon="@mipmap/launcher_icon"
     android:allowBackup="false"
     android:extractNativeLibs="true"
     android:usesCleartextTraffic="true"
@@ -101,16 +101,7 @@
 
     <!-- Begin FlutterDownloader customization -->
     <!-- disable default Initializer -->
-    <provider
-        android:name="androidx.startup.InitializationProvider"
-        android:authorities="${applicationId}.androidx-startup"
-        android:exported="false"
-        tools:node="merge">
-        <meta-data
-            android:name="androidx.work.WorkManagerInitializer"
-            android:value="androidx.startup"
-            tools:node="remove" />
-    </provider>
+ 
     
     <!-- declare customized Initializer -->
     <provider
@@ -172,11 +163,7 @@
       </intent-filter>
     </activity>
 
-    <activity
-        android:name="space.wisnuwiry.native_camera.CameraActivity"
-        android:theme="@style/Theme.AppCompat.Light"
-        android:screenOrientation="portrait"
-            />
+   
     <service
         android:name="rekab.app.background_locator.IsolateHolderService"
         android:permission="android.permission.FOREGROUND_SERVICE"

@@ -50,21 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBDTC4giMOf332tViDLw4g0f-8oRzUf2C0',
-    appId: '1:566252896707:android:666c31578ad9d3548a3d76',
-    messagingSenderId: '566252896707',
-    projectId: 'payroll-phylot',
-    storageBucket: 'payroll-phylot.appspot.com',
+    apiKey: 'AIzaSyA5RktWJB-UGsSapHRX2rh0PdnWNy3EoUI',
+    appId: '1:518691201533:android:d31a01ae1c3d5685297994',
+    messagingSenderId: '518691201533',
+    projectId: 'erp-adonara-9748c',
+    storageBucket: 'erp-adonara-9748c.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAYsSrCo8L8RUD4tIF_0RLmCqfOah_I-EY',
-    appId: '1:566252896707:ios:31582a308dcdf2f98a3d76',
-    messagingSenderId: '566252896707',
-    projectId: 'payroll-phylot',
-    storageBucket: 'payroll-phylot.appspot.com',
-    iosClientId:
-        '566252896707-febtfnl6o5f81c90rrthbgarv9reng7c.apps.googleusercontent.com',
-    iosBundleId: 'io.qerja.mobile',
+    apiKey: 'AIzaSyCvBOGfNZ3-VY8ROPcXx2yr-FBiOBXHFR4',
+    appId: '1:518691201533:ios:89657f128c7a3a0f297994',
+    messagingSenderId: '518691201533',
+    projectId: 'erp-adonara-9748c',
+    storageBucket: 'erp-adonara-9748c.firebasestorage.app',
+    iosBundleId: 'mobile.trackingworks.trackingworks',
   );
 }

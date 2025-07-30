@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
+import 'package:trackingworks/firebase_options.dart';
 import 'package:trackingworks/run_app.dart';
 import 'config/config.dart';
 import 'di/injection.dart';
@@ -19,6 +20,10 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   tz.initializeTimeZones();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions
+        .currentPlatform, // jika pakai firebase_options.dart
+  );
   _configureLocalTimeZone();
   await setupGlobalDI();
   await SentryFlutter.init((options) {

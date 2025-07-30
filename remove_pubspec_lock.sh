@@ -3,7 +3,6 @@
 rm core/pubspec.lock
 rm shared/component/pubspec.lock
 rm shared/dependencies/pubspec.lock
-rm shared/flutter_device_id/pubspec.lock
 rm shared/l10n/pubspec.lock
 rm shared/preferences/pubspec.lock
 rm features/apps/pubspec.lock

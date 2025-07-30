@@ -35,7 +35,6 @@ class AuthModule implements BaseModule {
     );
 
     // External
-    getIt.registerLazySingleton(() => FlutterDeviceId());
   }
 
   @override

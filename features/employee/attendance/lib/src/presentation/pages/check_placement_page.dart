@@ -8,7 +8,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:l10n/l10n.dart';
 import 'package:preferences/preferences.dart';
-import 'package:core/core.dart';
+import 'package:core/core.dart'
+    show LatLngX, Utils, MapUtils; // Tambahkan ini agar tidak ambigu
 
 import '../../../attendance.dart';
 
@@ -131,8 +132,9 @@ class _CheckPlacementPageState extends State<CheckPlacementPage> {
                 onMapCreated: (ctrl) async {
                   _controller.complete(ctrl);
 
-                  if (widget.currentLatLng.isValid() &&
-                      placementLatLng.isValid()) {
+                  // ✅ Gunakan extension override agar tidak ambigu
+                  if (LatLngX(widget.currentLatLng).isValid() &&
+                      LatLngX(placementLatLng).isValid()) {
                     Future.delayed(const Duration(milliseconds: 100)).then((_) {
                       ctrl.animateCamera(CameraUpdate.newLatLngBounds(
                           MapUtils.boundsFromLatLngList([

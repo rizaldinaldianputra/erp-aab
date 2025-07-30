@@ -23,16 +23,12 @@ class AuthHttpInterceptor extends InterceptorsWrapper {
     final token = await cacheManager.read(AuthConfig.tokenCacheKey);
     final languageCode = await _getLanguageCode();
 
-    final deviceId = await _getDeviceID();
-
     final _optionHeaders = <String, Object>{};
 
     if (options.headers['unAuthorize'] != true) {
       _optionHeaders.putIfAbsent('Authorization', () => 'Bearer $token');
     }
-    if (deviceId != null) {
-      _optionHeaders.putIfAbsent('user-device', () => deviceId);
-    }
+    _optionHeaders.putIfAbsent('user-device', () => Uuid().v4());
 
     _optionHeaders.putIfAbsent('Accept-Language',
         () => languageCode ?? SettingConfig.defaultCountry.code);
@@ -40,7 +36,7 @@ class AuthHttpInterceptor extends InterceptorsWrapper {
     options.headers.addAll(_optionHeaders);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("ath", 'Bearer $token');
-    prefs.setString("dvc", deviceId ?? Uuid().v4());
+    prefs.setString("dvc", Uuid().v4());
     prefs.setString("lg", SettingConfig.defaultCountry.code);
     handler.next(options);
   }
@@ -64,62 +60,6 @@ class AuthHttpInterceptor extends InterceptorsWrapper {
       onUnAuth?.call();
     }
     handler.next(err);
-  }
-
-  Future<String?> _getDeviceID() async {
-    final _config = GetIt.I<GlobalConfiguration>();
-    final cachedDeviceId = _config.getValue('DEVICE_ID');
-
-    if (cachedDeviceId != null &&
-        cachedDeviceId != 'null' &&
-        cachedDeviceId is String) {
-      return cachedDeviceId;
-    } else {
-      try {
-        final result = await GetIt.I<FlutterDeviceId>().deviceId;
-        log('DEVICE ID: $result');
-
-        String finalDeviceId;
-
-        if (result != null && result != 'null') {
-          finalDeviceId = result;
-        } else {
-          finalDeviceId =
-              const Uuid().v4(); // generate UUID jika device ID kosong/null
-          log('Generated UUID v4: $finalDeviceId');
-
-          GetIt.I<RecordErrorUseCase>()(
-            RecordErrorParams(
-              library: 'Flutter Device Id',
-              tags: const ['Flutter Device Id'],
-              exception: Exception('Device ID is null, using UUID instead'),
-              stackTrace: StackTrace.current,
-              errorMessage: 'Device ID is null, using UUID instead',
-            ),
-          );
-        }
-
-        _config.setValue('DEVICE_ID', finalDeviceId);
-        return finalDeviceId;
-      } catch (e, stackTrace) {
-        final fallbackId = const Uuid().v4();
-        log('ERROR getting device ID: $e, fallback UUID: $fallbackId');
-
-        GetIt.I<RecordErrorUseCase>()(
-          RecordErrorParams(
-            library: 'Flutter Device Id',
-            tags: const ['Flutter Device Id'],
-            exception: e is Exception ? e : Exception(e.toString()),
-            stackTrace: stackTrace,
-            errorMessage:
-                'Exception occurred while fetching device ID, fallback UUID used',
-          ),
-        );
-
-        _config.setValue('DEVICE_ID', fallbackId);
-        return fallbackId;
-      }
-    }
   }
 
   Future<String?> _getLanguageCode() async {
