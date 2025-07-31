@@ -78,7 +78,7 @@ class _HomeOfflinePageState extends State<HomeOfflinePage> {
                 title: Row(
                   children: [
                     Image.asset(
-                      'assets/images/logo_abb.webp',
+                      'assets/images/logo_abb.png',
                       height: 40,
                       color: const Color(0xFF343a40),
                     ),

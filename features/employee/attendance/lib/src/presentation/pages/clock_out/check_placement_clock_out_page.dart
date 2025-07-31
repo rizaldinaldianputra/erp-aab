@@ -35,17 +35,20 @@ class _CheckPlacementClockOutPageState
     _initLocation();
   }
 
-  void _initLocation() async {
+  Future<void> _initLocation() async {
+    debugPrint("🔍 Mendapatkan lokasi...");
     final location = await LocationUtils.getCurrentLocation(context: context);
 
     if (location != null) {
+      debugPrint(
+          "✅ Lokasi didapat: ${location.latitude}, ${location.longitude}");
       _checkPlacementBloc.add(FetchCheckPlacementEvent(
         latitude: location.latitude,
         longitude: location.longitude,
         workingFrom: widget.workingFrom,
       ));
     } else {
-      Geolocator.openLocationSettings();
+      debugPrint("❌ Lokasi gagal didapat");
       if (mounted) Navigator.of(context).pop();
     }
   }
@@ -54,12 +57,8 @@ class _CheckPlacementClockOutPageState
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CheckPlacementBloc>.value(
-          value: _checkPlacementBloc,
-        ),
-        BlocProvider<AcceptClockBloc>.value(
-          value: _acceptClockBloc,
-        ),
+        BlocProvider<CheckPlacementBloc>.value(value: _checkPlacementBloc),
+        BlocProvider<AcceptClockBloc>.value(value: _acceptClockBloc),
       ],
       child: Scaffold(
         appBar: AppBar(title: Text(S.of(context).clock_out)),
@@ -68,16 +67,20 @@ class _CheckPlacementClockOutPageState
             if (state is AcceptClockLoading) {
               IndicatorsUtils.showLoadingSnackBar(context);
             } else if (state is AcceptClockFailure) {
-              if (mounted) IndicatorsUtils.hideCurrentSnackBar();
+              IndicatorsUtils.hideCurrentSnackBar();
               IndicatorsUtils.showErrorSnackBar(context, state.failure.message);
             } else if (state is AcceptClockSuccess) {
-              if (mounted) IndicatorsUtils.hideCurrentSnackBar();
-              Navigator.pushNamed(context, '/attendance/clock-out', arguments: {
-                'data': state.data,
-                'clockBody': _sendData,
-              });
+              IndicatorsUtils.hideCurrentSnackBar();
+              Navigator.pushNamed(
+                context,
+                '/attendance/clock-out',
+                arguments: {
+                  'data': state.data,
+                  'clockBody': _sendData,
+                },
+              );
             } else {
-              if (mounted) IndicatorsUtils.hideCurrentSnackBar();
+              IndicatorsUtils.hideCurrentSnackBar();
             }
           },
           child: BlocBuilder<CheckPlacementBloc, CheckPlacementState>(
@@ -100,6 +103,8 @@ class _CheckPlacementClockOutPageState
                     onPress: _initLocation,
                   ),
                 );
+              } else if (state is CheckPlacementLoading) {
+                return const Center(child: CircularProgressIndicator());
               } else {
                 return const Center(child: CircularProgressIndicator());
               }
@@ -111,25 +116,24 @@ class _CheckPlacementClockOutPageState
   }
 
   void _checkAcceptClock(OfficePlacementEntity data, LatLng latLng) {
-    setState(() {
-      _sendData = ClockBodyModel(
-        address: data.address,
-        clock: DateFormat('HH:mm:ss').format(DateTime.now()),
-        date: DateTime.now(),
-        imageId: widget.imageId,
-        latitude: latLng.latitude,
-        longitude: latLng.longitude,
-        type: AttendanceType.clockOut,
-        workingFrom: widget.workingFrom,
-      );
-    });
+    final now = DateTime.now();
+    _sendData = ClockBodyModel(
+      address: data.address,
+      clock: DateFormat('HH:mm:ss').format(now),
+      date: now,
+      imageId: widget.imageId,
+      latitude: latLng.latitude,
+      longitude: latLng.longitude,
+      type: AttendanceType.clockOut,
+      workingFrom: widget.workingFrom,
+    );
 
     _acceptClockBloc.add(GetCheckAcceptClockEvent(_sendData!));
   }
 
   @override
   void dispose() {
-    if (mounted) IndicatorsUtils.hideCurrentSnackBar();
+    IndicatorsUtils.hideCurrentSnackBar();
     super.dispose();
   }
 }

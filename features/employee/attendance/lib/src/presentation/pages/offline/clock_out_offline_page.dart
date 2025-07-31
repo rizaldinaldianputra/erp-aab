@@ -71,15 +71,19 @@ class _ClockOutOfflinePageState extends State<ClockOutOfflinePage> {
   }
 
   Future<bool> _initLocation() async {
-    final location = await LocationUtils.getCurrentLocation(context: context);
+    final position = await LocationUtils.getCurrentLocation(context: context);
 
-    if (location != null) {
-      _location = location;
+    if (position != null) {
+      _location = _convertPositionToLatLng(position);
       return true;
     } else {
       Geolocator.openLocationSettings();
       return false;
     }
+  }
+
+  LatLng _convertPositionToLatLng(Position position) {
+    return LatLng(position.latitude, position.longitude);
   }
 
   @override

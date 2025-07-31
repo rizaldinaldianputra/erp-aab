@@ -23,9 +23,10 @@ class UploadAttendanceImageBodyModel extends Equatable {
         image.path,
         filename: image.path.split('/').last,
       ),
-      'type': type.convertToString(),
-      'date': DateFormat('y-MM-dd').format(date),
-      'status': workingFrom.convertToString(),
+      'type': type.convertToString(), // harus valid string (cek backend)
+      'date': DateFormat('yyyy-MM-dd').format(date), // fix format
+      'status':
+          workingFrom.convertToString(), // harus valid string (cek backend)
     });
   }
 

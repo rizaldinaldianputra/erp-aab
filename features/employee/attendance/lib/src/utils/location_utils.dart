@@ -1,61 +1,44 @@
-import 'dart:developer';
 import 'dart:io';
 
-// import 'package:component/component.dart';
-// import 'package:core/core.dart';
 import 'package:dependencies/dependencies.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
-// import 'package:l10n/l10n.dart';
 
 class LocationUtils {
-  static Future<LatLng?> getCurrentLocation({BuildContext? context}) async {
+  static Future<Position?> getCurrentLocation({
+    required BuildContext context,
+  }) async {
     try {
-      bool _serviceEnabled;
-      LocationPermission _permissionGranted;
-
-      _serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!_serviceEnabled) {
-        _serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      // Cek apakah layanan lokasi aktif
+      final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        await Geolocator.openLocationSettings();
+        return null;
       }
 
-      _permissionGranted = await Geolocator.checkPermission();
-      if (_permissionGranted != LocationPermission.always) {
-        if (context != null && Platform.isAndroid) {
-          // await _showDialogAboutPermissionLocation(context);
+      // Cek dan minta izin lokasi
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          return null;
         }
-        _permissionGranted = await Geolocator.requestPermission();
       }
 
-      final position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+      if (permission == LocationPermission.deniedForever) {
+        await Geolocator.openAppSettings();
+        return null;
+      }
 
-      return LatLng(position.latitude, position.longitude);
+      // Ambil posisi sekarang
+      return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
     } catch (e) {
-      log('ERROR: $e');
+      debugPrint('Gagal mendapatkan lokasi: $e');
       return null;
     }
   }
-
-//   static Future _showDialogAboutPermissionLocation(BuildContext context) {
-//     return showDialog(
-//       context: context,
-//       builder: (_) => AppAlertDialog(
-//         body: Text(
-//           S.current.track_location_permission_message(
-//             GetIt.I<GlobalConfiguration>().getValue('app_name'),
-//           ),
-//         ),
-//         actions: [
-//           TextButton(
-//             onPressed: () {
-//               Navigator.of(context).pop();
-//             },
-//             child: Text(S.current.yes),
-//           )
-//         ],
-//       ),
-//     );
-//   }
 }
 
 extension FilesExtensions on List<File> {

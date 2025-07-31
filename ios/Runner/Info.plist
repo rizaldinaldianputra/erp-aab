@@ -32,7 +32,11 @@
 	<!--
 	
 	-->
-
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>This app needs local network access for development tools.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

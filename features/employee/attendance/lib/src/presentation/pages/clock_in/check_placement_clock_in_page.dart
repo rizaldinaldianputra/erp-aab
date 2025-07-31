@@ -45,7 +45,6 @@ class _CheckPlacementClockInPageState extends State<CheckPlacementClockInPage> {
         ),
       );
     } else {
-      Geolocator.openLocationSettings();
       Navigator.of(context).pop();
     }
   }
