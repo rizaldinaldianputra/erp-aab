@@ -7,10 +7,10 @@ import 'package:dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:l10n/l10n.dart';
 import 'package:notice/notice.dart';
+import 'package:patroli/patroli.dart';
 import 'package:preferences/preferences.dart';
 import 'package:profile/profile.dart';
 import 'package:settings/settings.dart';
-
 import '../../../home.dart';
 import '../presentation.dart';
 
@@ -206,6 +206,7 @@ class _MainPageState extends State<_MainNavigation> {
   final List<Widget> _pages = const [
     HomeOnlinePage(),
     NoticePage(),
+    Patroli(),
     ProfilePage(),
   ];
 
@@ -259,6 +260,11 @@ class _MainPageState extends State<_MainNavigation> {
             icon: Icon(AppIcons2.messageLine),
             activeIcon: Icon(AppIcons2.messageSolid),
             label: "Inbox"),
+        const BottomNavigationBarItem(
+          icon: Icon(AppIcons2.widgetLine),
+          activeIcon: Icon(AppIcons2.widgetSolid),
+          label: "Patroli",
+        ),
         BottomNavigationBarItem(
             icon: const Icon(AppIcons2.userLine),
             activeIcon: const Icon(AppIcons2.userSolid),

@@ -43,6 +43,12 @@ class ResignModule implements BaseModule {
         ),
         settings: settings,
       ),
+      '/resign-application/detail': CupertinoPageRoute(
+        builder: (_) => DetailResignPage(
+          data: args['data'],
+        ),
+        settings: settings,
+      ),
     };
   }
 }

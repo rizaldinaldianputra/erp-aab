@@ -26,6 +26,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  geolocator: ^14.0.2
+  hexcolor: ^3.0.1
   l10n:
     path: shared/l10n
   leave:
@@ -45,7 +47,6 @@ dependencies:
   settings:
     path: features/settings
   uuid: ^4.5.1
-  geolocator: ^14.0.2
 # dependency_overrides:
 #   platform: ^3.1.0
 dev_dependencies:

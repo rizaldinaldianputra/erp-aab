@@ -2,6 +2,7 @@ import 'package:component/component.dart';
 import 'package:flutter/material.dart';
 import 'package:l10n/l10n.dart';
 import 'package:preferences/preferences.dart';
+import 'package:profile/src/presentation/pages/index/sections/tugas.dart';
 import 'pengajuan_lembur.dart';
 
 class AccountMenuSection extends StatelessWidget {
@@ -75,16 +76,19 @@ class AccountMenuSection extends StatelessWidget {
             },
             trailing: _buildTrailing(context),
           ),
-          // _buildDivider(),
-          // ListMenuTile(
-          //   leadingColor: StaticColors.sunriseYellow,
-          //   leadingIcon: Icons.star_border_rounded,
-          //   title: "My Performance",
-          //   onTap: () {
-          //     Navigator.pushNamed(context, '/profile/performance');
-          //   },
-          //   trailing: _buildTrailing(context),
-          // ),
+          ListMenuTile(
+            leadingColor: StaticColors.alertColor,
+            leadingIcon: AppIcons.tagLine,
+            title: 'Tugas',
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Tugas(),
+                  ));
+            },
+            trailing: _buildTrailing(context),
+          ),
         ],
       ),
     );

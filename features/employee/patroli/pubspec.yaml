@@ -1,4 +1,4 @@
-name: home_employee
+name: patroli
 description: A new Flutter package.
 version: 0.0.2
 homepage: "https://kodingworks.io/"
@@ -8,11 +8,11 @@ publish_to: none
 environment:
   sdk: ">=2.12.0 <3.0.0"
   flutter: ">=2.0.0"
+  
 
 dependencies:
   flutter:
     sdk: flutter
-  
   core:
     path: ../../../core
   component:
@@ -23,18 +23,9 @@ dependencies:
     path: ../../../shared/l10n
   preferences:
     path: ../../../shared/preferences
-  profile:
-    path: ../profile
-  patroli:
-    path: ../patroli
-  tugas:
-    path: ../tugas
-  notice:
-    path: ../notice
   auth:
     path: ../../auth
-  attendance:
-    path: ../attendance
+  hexcolor: ^3.0.1
 
 dev_dependencies:
   flutter_test:

@@ -24,6 +24,7 @@ dependencies:
     path: ../../../shared/preferences
   auth:
     path: ../../auth
+  hexcolor: ^3.0.1
 
 dev_dependencies:
   flutter_test:
